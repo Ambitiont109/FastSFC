@@ -10,7 +10,6 @@ pandas==0.24.1
 django_compressor
 django-toolbelt
 django-webpack-loader
-djrill
 django-allauth==0.24.1
 xlrd
 functools32
@@ -44,6 +43,7 @@ supervisor
 # AWS
 boto
 boto3
+django-ses
 
 # Database
 mysql-python

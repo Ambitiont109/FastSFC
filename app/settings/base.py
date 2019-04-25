@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'djrill',
+    'django_ses',
     'compressor',
     'titlecase',
     'app.core',
@@ -195,9 +195,10 @@ ES_USE_SSL = False
 ES_PASSWORD = 'changeme'
 
 # ==============================================================================
-# Djrill (Mandrill)
+# Email (Django SES)
 # ==============================================================================
 
-EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
-MANDRILL_API_KEY = 'txPVspdKhImqXQUUCcEyDA'
+EMAIL_BACKEND = 'django_ses.SESBackend'
+AWS_SES_REGION_NAME = 'us-west-2'
+AWS_SES_REGION_ENDPOINT = 'email.us-west-2.amazonaws.com'
 DEFAULT_FROM_EMAIL = 'hello@fastsfc.com'
