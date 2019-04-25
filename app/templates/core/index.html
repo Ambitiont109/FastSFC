@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}FastSFC - NYSE, NASDAQ and HKSE company reports{% endblock %}
+{% block description %}NYSE, NASDAQ and HKSE annual reports, interim reports, prospectuses, announcements and other public disclosures in a flash.{% endblock %}
+{% block body_class %}one-page-fill{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<header class="hero hero-landing">
+	{% include 'includes/nav.html' %}
+
+	<div class="content">
+		<h1>Fast financial filings</h1>
+		<h2>Get NYSE, NASDAQ and HKSE company reports, prospectuses and other filings quickly.</h2>
+		<div class="query-view col-md-8">
+			<form class="query-form" role="form">
+				<div class="form-group">
+					<input class="mt-input mt-input-search" name="companies" type="text" placeholder="Search ticker or company..." />
+				</div>
+				<button class="btn btn-search btn-search-light btn-typeahead" type="submit"><i class="fa fa-search"></i></button>
+			</form>
+		</div>
+	</div>
+</header>
+
+<span id="app"></span>
+
+{% endblock %}

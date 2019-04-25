@@ -1,0 +1,33 @@
+<header class="search-nav">
+    <a href="/">
+        <img class="brand" src="/static/img/logo.png">
+    </a>
+    <div class="query-view col-sm-8">
+        <form class="query-form" role="form">
+            <div class="form-group">
+                <input class="mt-input-search mt-input" name="companies" type="text" placeholder="Enter ticker or company..." />
+            </div>
+            <button class="btn btn-search btn-typeahead" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <span id="app"></span>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="contact">hello@fastsfc.com</li>
+        <!--
+        {% if request.user.is_authenticated %}
+        <li><a href="/app/dashboard">Dashboard</a></li>
+        <li>
+            <a class="dropdown-toggle" id="profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{ request.user }} <span class="fa fa-angle-down"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-light dropdown-menu-sm" aria-labelledby="profile-dropdown">
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </li>
+        {% else %}
+        <li><a href="/login">Login</a></li>
+        {% endif %}
+        -->
+    </ul>
+</header>

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load metisa_extras %}
+
+{% block title %}{{ company.short_name }} ({{company.ticker}}) filings - FastSFC{% endblock %}
+{% block description %}Annual reports, interim reports, prospectuses and announcements for {{ company.short_name }}.{% endblock %}
+
+{% block content %}
+
+{% include 'includes/search_nav.html' %}
+{% include 'includes/company_snapshot.html' %}
+
+<div class="content container">
+    {% include 'includes/sidebar.html' with active='categorized' %}
+    {% if layout == 'us' %}
+    {% include 'includes/document_list_us.html' %}
+    {% else %}
+    {% include 'includes/document_list_hk.html' %}
+    {% endif %}
+</div>
+
+{% include 'includes/footer_light.html' %}
+
+{% endblock %}

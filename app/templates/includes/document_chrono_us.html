@@ -1,0 +1,30 @@
+<div class="document-list-chronological">
+    <table class="table table-document">
+        <thead>
+            <tr>
+                <th class="col-md-1">Date</th>
+                <th class="col-md-1">Type</th>
+                <th class="col-md-10">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doc in documents %}
+            <tr>
+                <td class="date">{{ doc.date|date:"d/m/y" }}</td>
+                <td class="ellipsis">{{ doc.cat.name }}</td>
+                <td class="ellipsis"><a href="{{ doc.url }}" target="_blank">{{ doc.description }}</a></td>
+            </tr>
+            {% endfor %}
+            {% if count > 20 %}
+            <tbody id="document-financials-chrono-loader"></tbody>
+            <tbody>
+                <tr>
+                    <td colspan="3" class="load-more">
+                      <a>More <i class="fa fa-angle-down"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endif %}
+        </tbody>
+    </table>
+</div>

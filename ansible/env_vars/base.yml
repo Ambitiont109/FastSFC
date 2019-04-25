@@ -1,0 +1,8 @@
+---
+
+git_repo: git@bitbucket.org:justinyek/fast.git
+
+project_name: fastdataco
+application_name: fastsfc
+
+ssl_dest_dir: /etc/ssl
