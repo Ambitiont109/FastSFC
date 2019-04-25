@@ -1,6 +1,16 @@
 FastSFC
 ======================
 
+## Dependencies
+
+FastSFC's webapp runs on Django, React and MySQL. You will need the following dependencies in order to set it up:
+
+* pip 19.0.3
+* Python 2.7.10
+* Node 10.15.1
+* NPM 6.9.0
+* npm-run-all 4.1.5
+
 ## Setup
 
 **Create virtualenv for project**
@@ -14,7 +24,6 @@ source env/bin/activate
 ```
 cd path/to/app/repository
 pip install -r requirements.pip
-pip install -e .
 cp app/settings/local.sample.py app/settings/local.py
 ```
 
@@ -34,7 +43,7 @@ npm install
 
 **Start project**
 ```
-run-p watch server
+run-p watch start
 ```
 
 ## Deployment
@@ -43,7 +52,15 @@ cd ansible
 ansible-playbook -i production webservers.yml
 ```
 
-## Documentation
+## Scraper (Optional)
+
+FastSFC is comprised of a webapp (django) and scraper (scrapy). If you have access to the scraper module and would like to use it with the webapp, you may clone it as follows:
+
+```
+git clone https://justinyek@bitbucket.org/justinyek/fast-crawler.git scraper
+```
+
+## Documentation [NOT UPDATED]
 
 Developer documentation is available in Sphinx format in the docs directory.
 
