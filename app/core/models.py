@@ -146,6 +146,8 @@ class DocumentCount (models.Model):
     company = models.ForeignKey('core.Company', null=False)
     actual_count = models.IntegerField(null=True)
     our_count = models.IntegerField(null=True)
+    cache_count = models.IntegerField(null=True)
+    index_count = models.IntegerField(null=True)
 
     class Meta:
         verbose_name_plural = "Document Counts"

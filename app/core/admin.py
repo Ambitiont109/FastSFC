@@ -9,7 +9,7 @@ class PeriodAdmin(admin.ModelAdmin):
 
 
 class DocumentCategoryAdmin(admin.ModelAdmin):
-    list_display = ["name"]
+    list_display = ["name", "description"]
 
 
 class DocumentSubcategoryAdmin(admin.ModelAdmin):

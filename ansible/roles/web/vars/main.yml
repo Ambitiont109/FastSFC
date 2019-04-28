@@ -3,6 +3,7 @@
 # Application settings
 virtualenv_path: "/webapps/{{ project_name }}"
 project_path: "{{ virtualenv_path }}/{{ application_name }}"
+project_scraper_path: "{{ virtualenv_path }}/{{ application_name }}/{{ scraper_name }}"
 application_log_dir: "{{ virtualenv_path }}/logs"
 application_log_file: "{{ application_log_dir }}/gunicorn_supervisor.log"
 requirements_file: "{{ project_path }}/requirements.pip"

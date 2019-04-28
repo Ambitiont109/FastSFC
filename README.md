@@ -43,13 +43,13 @@ npm install
 
 **Start project**
 ```
-run-p watch start
+npm run-script start
 ```
 
 ## Deployment
 ```
-cd ansible
-ansible-playbook -i production webservers.yml
+npm run-script deploy:web
+npm run-script deploy:compute
 ```
 
 ## Scraper (Optional)

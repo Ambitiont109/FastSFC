@@ -8,10 +8,18 @@
     line: Defaults env_keep += "SSH_AUTH_SOCK"
   tags: git
 
-- name: Setup the Git repo
+- name: Pull Git web repo
   git: repo={{ git_repo }}
        version="{{ git_branch }}"
        dest={{ project_path }}
+       accept_hostkey=yes
+  when: setup_git_repo is defined and setup_git_repo
+  tags: git
+
+- name: Pull Git compute repo
+  git: repo={{ git_scraper_repo }}
+       version="{{ git_branch }}"
+       dest={{ project_scraper_path }}
        accept_hostkey=yes
   when: setup_git_repo is defined and setup_git_repo
   tags: git

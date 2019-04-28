@@ -4,15 +4,17 @@
   "description": "FastSFC client",
   "main": "index.js",
   "scripts": {
-    "client": "cross-env NODE_ENV=development webpack-dev-server --open",
-    "watch": "cross-env NODE_ENV=development webpack --watch",
-    "flake8": "flake8 app",
     "build": "cross-env NODE_ENV=production webpack",
-    "start": "python manage.py runserver",
-    "deploy": "cd ansible && ansible-playbook -i production webservers.yml --tags=deploy",
+    "client": "cross-env NODE_ENV=development webpack-dev-server --open",
+    "deploy:web": "cd ansible && ansible-playbook -i production web.yml --tags=deploy",
+    "deploy:compute": "cd ansible && ansible-playbook -i production compute.yml --tags=deploy",
+    "flake8": "flake8 app",
     "format": "prettier --write 'packages/**/*.js'",
+    "precommit": "lint-staged",
+    "server": "python manage.py runserver",
+    "start": "run-p watch server",
     "test": "jest --watchAll --coverage",
-    "precommit": "lint-staged"
+    "watch": "cross-env NODE_ENV=development webpack --watch"
   },
   "lint-staged": {
     "client/*.{js,jsx,scss,css,md}": [
