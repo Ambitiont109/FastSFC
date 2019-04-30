@@ -44,7 +44,7 @@
   cron: name="us daily filing pull"
         user="root"
         minute="0" hour="22"
-        job="/webapps/scrapy.sh crawl us_filing -a new=True"
+        job="/webapps/scrapy.sh crawl us_new_filing"
   tags: cron
 
 # Refresh US filing count
