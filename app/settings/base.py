@@ -44,12 +44,13 @@ INSTALLED_APPS = (
     'django_ses',
     'compressor',
     'titlecase',
-    'app.core',
     'rest_framework',
     'jsonfield',
     'pandas',
     'elasticsearch_dsl',
     'certifi',
+    'app.core',
+    'app.log',
 )
 
 # ==============================================================================

@@ -10,6 +10,7 @@ FastSFC's webapp runs on Django, React and MySQL. You will need the following de
 * node 10.15.1
 * npm 6.9.0
 * npm-run-all 4.1.5
+* mysql 5.7.23
 
 ## Deployment structure
 
@@ -19,6 +20,8 @@ FastSFC is deployed with the following servers:
 2. Search DB server: ElasticSearch hosted on ElasticCloud
 3. Web server: React client and Django server (i.e. code in this repo) hosted on EC2
 4. Compute server: Scraper code (i.e. code in scraper repo) hosted on EC2 that runs periodic cron jobs to fetch companies and documents
+
+Web and compute servers are Ubuntu 18.04.1 LTS (GNU/Linux 4.15.0-1035-aws x86_64).
 
 ## Setup
 
@@ -46,7 +49,7 @@ exit
 
 ** Seed database**
 
-Download and install seed database from [url](https://drive.google.com/file/d/1WbX110mSqSZDD9u_4XRVgceOQQfAuiQI/view?usp=drive_open).
+Download and install seed database from [url](https://drive.google.com/file/d/1WbX110mSqSZDD9u_4XRVgceOQQfAuiQI/view?usp=drive_open). (will take a while as database is 1.5GB)
 
 Migrate to update table structure.
 ```
