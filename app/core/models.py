@@ -115,7 +115,6 @@ class Document (models.Model):
 
     cat = models.ForeignKey('core.DocumentCategory', null=True)
     company = models.ForeignKey('core.Company', null=True)
-    subcat = models.ForeignKey('core.DocumentSubcategory', null=True)
     date = models.DateTimeField(null=True, db_index=True)
     description = models.CharField(max_length=1000, null=True)
     filetype = models.CharField(max_length=20, choices=FILETYPES, null=True)
@@ -124,6 +123,7 @@ class Document (models.Model):
     meta = JSONField(null=True)
     ref = models.CharField(max_length=50, null=True)
     size = models.IntegerField(null=True)
+    subcat = models.ForeignKey('core.DocumentSubcategory', null=True)
     url = models.URLField(null=True)
 
     def document_url(self):
