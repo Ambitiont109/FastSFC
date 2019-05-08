@@ -8170,15 +8170,18 @@ Interactive Layer
           color: #42B89E;
           border-bottom: 2px solid #42B89E; }
 
-.snapshot {
+.snapshot,
+.latest-filings {
   margin-bottom: 10px; }
-  .snapshot h1 {
+  .snapshot h1,
+  .latest-filings h1 {
     font-size: 24px;
     font-weight: bold;
     color: #484B54;
     margin-top: 20px;
     margin-bottom: 5px; }
-  .snapshot .description span {
+  .snapshot .description span,
+  .latest-filings .description span {
     color: #969996;
     padding-right: 13px; }
 
@@ -8527,35 +8530,35 @@ hr {
       color: #42B89E;
       background-color: #F2F2F2; }
   .query-view .query-form {
+    position: absolute;
+    z-index: 100;
     width: 100%; }
     .query-view .query-form .form-group {
       float: left;
       width: 85%;
       margin-bottom: 0px; }
+    .query-view .query-form .suggestions {
+      position: relative;
+      background-color: #fff; }
+    .query-view .query-form .suggestion {
+      display: block;
+      width: 100%;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      background-color: #fff; }
+    .query-view .query-form .suggestion:hover, .query-view .query-form .cursor {
+      background-color: #F2F2F2; }
+    .query-view .query-form .empty-message {
+      padding: 10px 12px;
+      background-color: #ffffff;
+      border: solid #ccc 1px; }
     .query-view .query-form .btn-search {
+      position: relative;
       float: left;
       width: 15%;
-      max-width: 50px; }
-  .query-view .tt-menu {
-    width: 100%;
-    text-align: left;
-    background-color: white;
-    border: solid #ccc 1px; }
-  .query-view .tt-suggestions {
-    background-color: #ffffff;
-    border: solid #ccc 1px; }
-  .query-view .tt-suggestion {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 20px; }
-  .query-view .tt-suggestion:hover, .query-view .tt-cursor {
-    background-color: #F2F2F2; }
-  .query-view .empty-message {
-    padding: 10px 12px;
-    background-color: #ffffff;
-    border: solid #ccc 1px; }
+      max-width: 50px;
+      left: -50px; }
 
 .query-msg {
   padding-left: 3px;

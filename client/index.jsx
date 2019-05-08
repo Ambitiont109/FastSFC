@@ -1,32 +1,37 @@
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
 import DocumentList from './components/DocumentList.jsx';
 import DocumentDetail from './components/DocumentDetail.jsx';
+import Search from './components/Search';
 
-if (document.getElementById('app') !== null) {
-  ReactDOM.render(<App />, document.getElementById('app'));
+const inputSearch = document.getElementById('input-search');
+if (inputSearch !== null) {
+  ReactDOM.render(<Search />, inputSearch);
 }
 
-if (document.getElementById('document-detail') !== null) {
-  ReactDOM.render(
-    <DocumentDetail type="document" />,
-    document.getElementById('document-detail')
-  );
+const documentDetail = document.getElementById('document-detail');
+if (documentDetail !== null) {
+  ReactDOM.render(<DocumentDetail type="document" />, documentDetail);
 }
 
-if (document.getElementById('website-document-detail') !== null) {
+const websiteDocumentDetail = document.getElementById(
+  'website-document-detail'
+);
+if (websiteDocumentDetail !== null) {
   ReactDOM.render(
     <DocumentDetail type="websiteDocument" />,
-    document.getElementById('website-document-detail')
+    websiteDocumentDetail
   );
 }
 
-if (document.getElementById('document-financials-chrono-loader')) {
+const documentFinancialChronoLoader = document.getElementById(
+  'document-financials-chrono-loader'
+);
+if (documentFinancialChronoLoader !== null) {
   ReactDOM.render(
     <DocumentList offset={20} limit={20} format="chronological" />,
-    document.getElementById('document-financials-chrono-loader')
+    documentFinancialChronoLoader
   );
 }
 

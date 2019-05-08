@@ -73,7 +73,7 @@
 }
 
 .snapshot,
-.content {
+.latest-filings {
   h1 {
     font-size: 24px;
     font-weight: bold;
@@ -576,6 +576,8 @@ hr {
   }
 
   .query-form {
+    position: absolute;
+    z-index: 100;
     width: 100%;
 
     .form-group {
@@ -584,41 +586,37 @@ hr {
       margin-bottom: 0px;
     }
 
+    .suggestions {
+      position: relative;
+      background-color: #fff;
+    }
+
+    .suggestion {
+      display: block;
+      width: 100%;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      background-color: #fff;
+    }
+
+    .suggestion:hover, .cursor {
+      background-color: $gray-lighter;
+    }
+
+    .empty-message {
+      padding: 10px 12px;
+      background-color: #ffffff;
+      border: solid #ccc 1px;
+    }
+
     .btn-search {
+      position: relative;
       float: left;
       width: 15%;
       max-width: 50px;
+      left: -50px;
     }
-  }
-
-  .tt-menu {
-    width: 100%;
-    text-align: left;
-    background-color: white;
-    border: solid #ccc 1px;
-  }
-
-  .tt-suggestions {
-    background-color: #ffffff;
-    border: solid #ccc 1px;
-  }
-
-  .tt-suggestion {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 20px;
-  }
-
-  .tt-suggestion:hover, .tt-cursor {
-    background-color: $gray-lighter;
-  }
-
-  .empty-message {
-    padding: 10px 12px;
-    background-color: #ffffff;
-    border: solid #ccc 1px;
   }
 }
 

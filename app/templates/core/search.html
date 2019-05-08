@@ -32,15 +32,9 @@
     {% empty %}
     <div class="search-results-empty">
         <p>Please try again or refine your search:</p>
-        <div class="query-view query-view-light">
-            <form class="query-form" role="form">
-                <div class="form-group">
-                    <input class="mt-input mt-input-search" name="companies" type="text" placeholder="Enter ticker or company..." />
-                </div>
-                <button class="btn btn-search btn-typeahead" type="submit"><i class="fa fa-search"></i></button>
-            </form>
-            <div class="clearfix"></div>
+        <div class="query-view query-view-light" id="input-search">
         </div>
+        <div class="clearfix"></div>
         <p>Can't find what you're looking for? We only cover HKSE stocks at the moment. <a href="/#contact">Contact us</a> if you'd like us to include other markets.</p>
     </div>
     {% endfor %}

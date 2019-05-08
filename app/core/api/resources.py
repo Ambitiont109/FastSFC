@@ -1,10 +1,13 @@
-import django_filters
 from django.contrib.auth.models import User
-from app.core.models import Company, Exchange, Document, WebsiteDocument, DocumentCategory, DocumentSubcategory, Price, UserProfile, Watchlist
+from django.db.models import Case, IntegerField, Value, When
+from rest_framework import pagination, routers
+from rest_framework.filters import SearchFilter
+
 from app.core.api.shared import *
-from rest_framework import routers, serializers, views, viewsets, filters, pagination
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from app.core.models import (
+    Company, Document, DocumentCategory,
+    DocumentSubcategory, Exchange, Price, WebsiteDocument
+)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,7 +31,7 @@ class DocumentCategorySerializer(serializers.ModelSerializer):
 class DocumentSubcategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentSubcategory
-        fields = ('name')
+        fields = ('name',)
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -36,7 +39,7 @@ class CompanySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Company
-        fields = ('ticker', 'full_name', 'short_name', 'exchange', 'website')
+        fields = ('id', 'ticker', 'full_name', 'short_name', 'exchange', 'website')
 
 
 class WatchlistSerializer(serializers.ModelSerializer):
@@ -74,6 +77,7 @@ class PriceSerializer(serializers.ModelSerializer):
         model = Price
         fields = ('company', 'date', 'open', 'close', 'high', 'low', 'adj_close', 'volume')
 
+
 # Filters
 
 
@@ -104,12 +108,34 @@ class WebsiteDocumentFilter(django_filters.FilterSet):
         model = WebsiteDocument
         fields = ('ticker', 'description', 'url', 'last_updated')
 
+
+class RelevantSearchFilter(SearchFilter):
+    def filter_queryset(self, request, queryset, view):
+        queryset = super(RelevantSearchFilter, self).filter_queryset(request, queryset, view)
+        search_value = request.query_params.get('search')
+
+        return queryset.annotate(
+            custom_order=Case(
+                When(ticker=search_value, then=Value(8)),
+                When(short_name=search_value, then=Value(7)),
+                When(ticker__istartswith=search_value, then=Value(6)),
+                When(ticker__iendswith=search_value, then=Value(5)),
+                When(ticker__icontains=search_value, then=Value(4)),
+                When(short_name__istartswith=search_value, then=Value(3)),
+                When(short_name__iendswith=search_value, then=Value(2)),
+                When(short_name__icontains=search_value, then=Value(1)),
+                output_field=IntegerField(),
+            )
+        ).order_by('-custom_order')
+
+
 # Pagination
 
 
 class PricePagination(pagination.LimitOffsetPagination):
     default_limit = 251
     max_limit = 1000
+
 
 # ViewSets
 
@@ -120,7 +146,6 @@ class WatchlistViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         user = self.request.user
         return Watchlist.objects.filter(user=user)
-
 
 
 class ExchangeViewSet(viewsets.ModelViewSet):
@@ -158,7 +183,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (RelevantSearchFilter,)
     search_fields = ('ticker', 'short_name')
 
 
