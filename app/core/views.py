@@ -11,40 +11,42 @@ from app.core.models import Company, Document, WebsiteDocument
 from app.core.elastic import ESDocument
 
 
-
 class CompanyDocumentCategorized(ListView):
     def get(self, request, ticker):
         try:
-            company = Company.objects.get(ticker=ticker)
-            layout = company.get_layout()
+            if ticker.isdigit():
+                company = Company.objects.get(id=ticker)
+            else:
+                company = Company.objects.get(ticker=ticker)
 
+            layout = company.get_layout()
             financials = Document.objects.filter(
-                company__ticker=ticker,
+                company=company,
                 cat__type='financials'
             ).order_by('-date')[:9]
 
             announcements = Document.objects.filter(
-                company__ticker=ticker,
+                company=company,
                 cat__type='announcements'
             ).order_by('-date')[:9]
 
             prospectuses = Document.objects.filter(
-                company__ticker=ticker,
+                company=company,
                 cat__type='prospectuses'
             ).order_by('-date')[:9]
 
             proxies = Document.objects.filter(
-                company__ticker=ticker,
+                company=company,
                 cat__type='proxies'
             ).order_by('-date')[:9]
 
             ownership = Document.objects.filter(
-                company__ticker=ticker,
+                company=company,
                 cat__type='ownership'
             ).order_by('-date')[:9]
 
             others = Document.objects.filter(
-                company__ticker=ticker,
+                company=company,
                 cat__type='other'
             ).order_by('-date')[:9]
 
@@ -65,7 +67,6 @@ class CompanyDocumentCategorized(ListView):
                 'others': others[:8],
                 'others_count': len(others),
             })
-
         except Company.DoesNotExist:
             return render(request, 'core/company_404.html', {
                 'ticker': ticker,
@@ -75,9 +76,13 @@ class CompanyDocumentCategorized(ListView):
 class CompanyDocumentChrono(View):
     def get(self, request, ticker):
         try:
-            company = Company.objects.get(ticker=ticker)
+            if ticker.isdigit():
+                company = Company.objects.get(id=ticker)
+            else:
+                company = Company.objects.get(ticker=ticker)
+
             documents = Document.objects.filter(
-                company__ticker=ticker,
+                company=company,
             ).order_by('-date')
             layout = company.get_layout()
 
@@ -97,7 +102,11 @@ class CompanyDocumentChrono(View):
 class CompanyDocumentWebsite(View):
     def get(self, request, ticker):
         try:
-            company = Company.objects.get(ticker=ticker)
+            if ticker.isdigit():
+                company = Company.objects.get(id=ticker)
+            else:
+                company = Company.objects.get(ticker=ticker)
+
             documents = WebsiteDocument.objects.filter(
                 company__ticker=ticker,
             ).order_by('-last_updated')

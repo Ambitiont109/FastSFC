@@ -68,6 +68,10 @@ class Company (models.Model):
     def __unicode__(self):
         return self.ticker or self.short_name
 
+    @property
+    def identifier(self):
+        return self.ticker or self.id
+
     def get_absolute_url(self):
         return reverse('core:company_document', kwargs={'ticker': self.ticker})
 
@@ -80,7 +84,8 @@ class Company (models.Model):
     def get_layout(self):
         if self.exchange.short_name == 'NYSE' \
         or self.exchange.short_name == 'NASDAQ' \
-        or self.exchange.short_name == 'AMEX':
+        or self.exchange.short_name == 'AMEX' \
+        or self.exchange.short_name == 'US':
             return 'us'
 
         return 'hk'
