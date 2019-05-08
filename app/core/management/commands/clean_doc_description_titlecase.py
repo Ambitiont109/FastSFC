@@ -3,7 +3,7 @@ from app.core.models import Document
 
 
 class Command(BaseCommand):
-    help = ('Migrate document descriptions to titlecase')
+    help = ('Clean document descriptions: Fix titlecase')
 
     def add_arguments(self, parser):
         pass

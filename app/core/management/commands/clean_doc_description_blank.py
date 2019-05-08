@@ -3,7 +3,7 @@ from app.core.models import Document
 
 
 class Command(BaseCommand):
-    help = ('Clean document descriptions')
+    help = ('Clean document descriptions: Change blank to [Untitled]')
 
     def handle(self, *args, **options):
         docs = Document.objects.filter(

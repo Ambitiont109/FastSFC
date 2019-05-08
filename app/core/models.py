@@ -66,7 +66,7 @@ class Company (models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
-        return self.ticker
+        return self.ticker or self.short_name
 
     def get_absolute_url(self):
         return reverse('core:company_document', kwargs={'ticker': self.ticker})

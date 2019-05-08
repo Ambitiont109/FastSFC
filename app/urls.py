@@ -14,6 +14,9 @@ urlpatterns = patterns(
     # core
     url(r'', include('app.core.urls', namespace='core')),
 
+    # log
+    url(r'', include('app.log.urls', namespace='log')),
+
     # django-allauth
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'', include('allauth.urls')),
