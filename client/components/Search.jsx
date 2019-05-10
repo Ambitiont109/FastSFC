@@ -92,6 +92,7 @@ class Search extends React.Component {
       if (companies[cursor] && companies[cursor].ticker) {
         return { q: companies[cursor].ticker };
       }
+      return {};
     });
   }
 
