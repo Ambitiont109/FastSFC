@@ -1,5 +1,6 @@
 import math
 import urllib
+from datetime import datetime, timedelta
 
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -208,6 +209,24 @@ class Search(View):
             'query': query,
             'results': len(companies),
             'companies': companies,
+        })
+
+
+class Latest(View):
+    def get(self, request):
+        one_week_ago = datetime.now() - timedelta(days=7)
+
+        docs = Document.objects.filter(
+            cat__type='prospectuses',
+            date__gte=one_week_ago,
+        ).order_by('-date')
+
+        new_issuers = docs.filter(company__ticker__isnull=True)
+        existing_issuers = docs.filter(company__ticker__isnull=False)
+
+        return render(request, 'core/latest.html', {
+            'new_issuers': new_issuers,
+            'existing_issuers': existing_issuers,
         })
 
 

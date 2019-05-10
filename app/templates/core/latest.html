@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load metisa_extras %}
+
+{% block title %}Latest Prospectuses - FastSFC{% endblock %}
+{% block description %}Latest prospectuses on HKSE, NYSE, NASDAQ and AMEX{% endblock %}
+
+{% block content %}
+
+{% include 'includes/search_nav.html' %}
+
+<div class="content container">
+    <h1>Latest Fundraising Activity</h1>
+    <h4>New Issuers</h4>
+    <table class="table table-document">
+        <thead>
+            <tr>
+                <th class="col-md-1">Date</th>
+                <th class="col-md-4">Name</th>
+                <th class="col-md-7">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doc in new_issuers %}
+            <tr>
+                <td class="date">{{ doc.date|date:"d/m/y" }}</td>
+                <td class="ellipsis">{{ doc.company.short_name }}</td>
+                <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
+            </tr>
+            {% endfor %}
+            {% if count > 20 %}
+            <tbody id="document-financials-chrono-loader"></tbody>
+            <tbody>
+                <tr>
+                    <td colspan="3" class="load-more">
+                      <a>More <i class="fa fa-angle-down"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <h4>Existing Issuers</h4>
+    <table class="table table-document">
+        <thead>
+            <tr>
+                <th class="col-md-1">Date</th>
+                <th class="col-md-1">Ticker</th>
+                <th class="col-md-4">Name</th>
+                <th class="col-md-6">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doc in existing_issuers %}
+            <tr>
+                <td class="date">{{ doc.date|date:"d/m/y" }}</td>
+                <td class="ellipsis">{{ doc.company.ticker }}</td>
+                <td class="ellipsis">{{ doc.company.short_name }}</td>
+                <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
+            </tr>
+            {% endfor %}
+            {% if count > 20 %}
+            <tbody id="document-financials-chrono-loader"></tbody>
+            <tbody>
+                <tr>
+                    <td colspan="3" class="load-more">
+                      <a>More <i class="fa fa-angle-down"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

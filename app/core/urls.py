@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import admin
-from app.core.views import CompanyDocumentCategorized, CompanyDocumentChrono, CompanyDocumentWebsite, CompanyDocumentSearch, Search, DocumentDetail, WebsiteDocumentDetail
+from app.core.views import CompanyDocumentCategorized, CompanyDocumentChrono, CompanyDocumentWebsite, CompanyDocumentSearch, Search, Latest, DocumentDetail, WebsiteDocumentDetail
 from app.core.sitemaps import sitemaps
 
 admin.autodiscover()
@@ -24,6 +24,7 @@ urlpatterns = patterns(
     url(r'^document/(?P<id>[a-zA-Z0-9_.-]*)/?$', DocumentDetail.as_view(), name='document_detail'),
     url(r'^document/website/(?P<id>[a-zA-Z0-9_.-]*)/?$', WebsiteDocumentDetail.as_view(), name='website_document_detail'),
     url(r'^search/?$', Search.as_view(), name='search'),
+    url(r'^latest/?$', Latest.as_view(), name='latest'),
 
     # sitemap
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
