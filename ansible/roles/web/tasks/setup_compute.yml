@@ -5,7 +5,7 @@
   cron: name="hk hourly new filings"
         user="root"
         minute="0"
-        job="/webapps/scrapy.sh crawl hkex_new_filings"
+        job="/webapps/scrapy.sh crawl hkex_new_filing"
   tags: cron
 
 - name: HKEx company cronjob
