@@ -30,6 +30,13 @@
         job="/webapps/scrapy.sh crawl hkex_filing -a new=True"
   tags: cron
 
+- name: HKEx PHIP and A1 filing cronjob
+  cron: name="hk daily PHIP and A1 filing pull"
+        user="root"
+        minute="0" hour="11"
+        job="/webapps/scrapy.sh crawl hkex_new_issuer"
+  tags: cron
+
 # US
 # 10PM GMT, which is 5-6pm EST, after market close
 - name: US company cronjob
