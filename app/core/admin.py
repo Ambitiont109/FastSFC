@@ -90,8 +90,16 @@ class CompanyAdmin(admin.ModelAdmin):
 @admin.register(Document)
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ["company", "date", "document_url", "cat", "description", "size", "filetype"]
+    list_filter = ("cat__type", "company__exchange__short_name")
     search_fields = ["company__ticker", "company__full_name"]
 
+    def document_url(self, doc):
+        if doc.url:
+            return '<a href="%s">%s</a>' % (doc.url, doc.url)
+        else:
+            return ''
+
+    document_url.allow_tags = True
 
 class IncompleteFilingFilter(admin.SimpleListFilter):
     """

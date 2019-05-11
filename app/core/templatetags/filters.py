@@ -9,3 +9,9 @@ def size(value):
     if value == -1:
         return '-'
     return intcomma(value) + ' kb'
+
+
+@register.filter
+def in_list(value, the_list):
+    value = str(value)
+    return value in the_list.split(',')

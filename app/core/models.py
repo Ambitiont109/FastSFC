@@ -131,14 +131,6 @@ class Document (models.Model):
     subcat = models.ForeignKey('core.DocumentSubcategory', null=True)
     url = models.URLField(null=True)
 
-    def document_url(self):
-        if self.url:
-            return '<a href="%s">%s</a>' % (self.url, self.url)
-        else:
-            return ''
-
-    document_url.allow_tags = True
-
 
 class WebsiteDocument (models.Model):
     company = models.ForeignKey('core.Company', null=True)

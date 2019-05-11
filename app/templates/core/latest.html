@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load metisa_extras %}
+{% load filters %}
 
 {% block title %}Latest Prospectuses - FastSFC{% endblock %}
 {% block description %}Latest prospectuses on HKSE, NYSE, NASDAQ and AMEX{% endblock %}
@@ -10,23 +10,34 @@
 {% include 'includes/search_nav.html' %}
 
 <div class="latest-filings content container">
-    <h1>Latest Fundraising Activity</h1>
-    <h4>New Issuers</h4>
+    <h1>Latest Capital Markets Activity</h1>
+    <h4>IPOs</h4>
     <table class="table table-document">
         <thead>
             <tr>
                 <th class="col-md-1">Date</th>
-                <th class="col-md-4">Name</th>
-                <th class="col-md-7">Description</th>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-2">Type</th>
+                <th class="col-md-6">Description</th>
             </tr>
         </thead>
         <tbody>
             {% for doc in new_issuers %}
+            {% if doc.company.exchange_id|in_list:"5,6,7,8" %}
             <tr>
                 <td class="date">{{ doc.date|date:"d/m/y" }}</td>
-                <td class="ellipsis">{{ doc.company.short_name }}</td>
+                <td class="ellipsis"><a href="/company/{{ doc.company.identifier }}">{{ doc.company.short_name }}</a></td>
+                <td class="ellipsis">{{ doc.cat.name }}</td>
+                <td class="ellipsis"><a href="{{ doc.url }}" target="_blank">{{ doc.description }}</a></td>
+            </tr>
+            {% else %}
+            <tr>
+                <td class="date">{{ doc.date|date:"d/m/y" }}</td>
+                <td class="ellipsis"><a href="/company/{{ doc.company.identifier }}">{{ doc.company.short_name }}</a></td>
+                <td class="ellipsis">{{ doc.cat.name }}</td>
                 <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
             </tr>
+            {% endif %}
             {% endfor %}
             {% if count > 20 %}
             <tbody id="document-financials-chrono-loader"></tbody>
@@ -41,24 +52,36 @@
         </tbody>
     </table>
 
-    <h4>Existing Issuers</h4>
+    <h4>Follow-ons and Bonds</h4>
     <table class="table table-document">
         <thead>
             <tr>
                 <th class="col-md-1">Date</th>
                 <th class="col-md-1">Ticker</th>
-                <th class="col-md-4">Name</th>
-                <th class="col-md-6">Description</th>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-2">Type</th>
+                <th class="col-md-5">Description</th>
             </tr>
         </thead>
         <tbody>
             {% for doc in existing_issuers %}
+            {% if doc.company.exchange_id|in_list:"5,6,7,8" %}
             <tr>
                 <td class="date">{{ doc.date|date:"d/m/y" }}</td>
                 <td class="ellipsis">{{ doc.company.ticker }}</td>
-                <td class="ellipsis">{{ doc.company.short_name }}</td>
+                <td class="ellipsis"><a href="/company/{{ doc.company.identifier }}">{{ doc.company.short_name }}</a></td>
+                <td class="ellipsis">{{ doc.cat.name }}</td>
+                <td class="ellipsis"><a href="{{ doc.url }}" target="_blank">{{ doc.description }}</a></td>
+            </tr>
+            {% else %}
+            <tr>
+                <td class="date">{{ doc.date|date:"d/m/y" }}</td>
+                <td class="ellipsis">{{ doc.company.ticker }}</td>
+                <td class="ellipsis"><a href="/company/{{ doc.company.identifier }}">{{ doc.company.short_name }}</a></td>
+                <td class="ellipsis">{{ doc.cat.name }}</td>
                 <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
             </tr>
+            {% endif %}
             {% endfor %}
             {% if count > 20 %}
             <tbody id="document-financials-chrono-loader"></tbody>

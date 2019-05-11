@@ -3,7 +3,7 @@ from app.core.models import Document
 
 
 class Command(BaseCommand):
-    help = ('Clean document descriptions: Fix titlecase')
+    help = ('Clean document descriptions: Fix URL of SEC filings')
 
     def add_arguments(self, parser):
         pass

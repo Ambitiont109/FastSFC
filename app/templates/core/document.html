@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load metisa_extras %}
+{% load filters %}
 
 {% block title %}{{ company.short_name }} ({{ company.ticker }}) Filings - FastSFC{% endblock %}
 {% block description %}{{ document.description }} published on {{ document.date | date:"d/m/y" }}{% endblock %}

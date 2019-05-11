@@ -216,13 +216,23 @@ class Latest(View):
     def get(self, request):
         one_week_ago = datetime.now() - timedelta(days=7)
 
-        docs = Document.objects.filter(
-            cat__type='prospectuses',
+        new_issuers = Document.objects.filter(
+            cat__name__in=[
+                'S-1',
+                'F-1',
+                'S-1/A',
+                'F-1/A',
+                'Application Proofs and Post Hearing Information Packs or PHIPs'
+            ],
             date__gte=one_week_ago,
+            company__ticker__isnull=True
         ).order_by('-date')
 
-        new_issuers = docs.filter(company__ticker__isnull=True)
-        existing_issuers = docs.filter(company__ticker__isnull=False)
+        existing_issuers = Document.objects.filter(
+            cat__type='prospectuses',
+            date__gte=one_week_ago,
+            company__ticker__isnull=False
+        )
 
         return render(request, 'core/latest.html', {
             'new_issuers': new_issuers,

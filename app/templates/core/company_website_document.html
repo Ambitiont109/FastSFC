@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load humanize %}
-{% load metisa_extras %}
+{% load filters %}
 
 {% block title %}{{ company.short_name }} ({{company.ticker}}) filings - FastSFC{% endblock %}
 {% block description %}Financials, prospectuses, news, proxies and other public documents for {{ company.short_name }}.{% endblock %}
