@@ -67,7 +67,7 @@ def index(doc):
         print 'Error {}: {}'.format(doc.id, e)
         sys.stdout.flush()
 
-    doc.meta['indexed'] = True
+    doc.indexed = Document.SUCCESS
     doc.save()
 
 
@@ -101,5 +101,3 @@ class Command(BaseCommand):
                     index(doc)
             except Exception as e:
                 traceback.print_exc()
-
-        # self.pool.close()

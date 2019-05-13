@@ -109,27 +109,42 @@ class Company (models.Model):
 
 
 class Document (models.Model):
-    FILETYPES = (
-        ('PDF', 'PDF'),
-        ('HTML', 'HTML'),
-        ('HTM', 'HTM'),
-        ('PPT', 'PPT'),
-        ('DOC', 'DOC'),
+    FILETYPE_CHOICES = (
+        ('pdf', 'pdf'),
+        ('html', 'html'),
+        ('htm', 'htm'),
+        ('ppt', 'ppt'),
+        ('doc', 'doc'),
         ('Multiple', 'Multiple'),
+    )
+
+    NOT_STARTED = 0
+    STARTED = 1
+    SUCCESS = 2
+    ERROR = 3
+    NA = 4
+    STATUS_CHOICES = (
+        (NOT_STARTED, 'Not started'),
+        (STARTED, 'Started'),
+        (SUCCESS, 'Success'),
+        (ERROR, 'Error'),
     )
 
     cat = models.ForeignKey('core.DocumentCategory', null=True)
     company = models.ForeignKey('core.Company', null=True)
     date = models.DateTimeField(null=True, db_index=True)
     description = models.CharField(max_length=1000, null=True)
-    filetype = models.CharField(max_length=20, choices=FILETYPES, null=True)
-    indexed = models.BooleanField(default=False, null=False)
+    filetype = models.CharField(max_length=20, choices=FILETYPE_CHOICES, null=True)
     last_updated = models.DateTimeField(auto_now=True)
     meta = JSONField(null=True)
     ref = models.CharField(max_length=50, null=True)
     size = models.IntegerField(null=True)
     subcat = models.ForeignKey('core.DocumentSubcategory', null=True)
     url = models.URLField(null=True)
+
+    cached = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False)
+    parsed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False)
+    indexed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False)
 
 
 class WebsiteDocument (models.Model):

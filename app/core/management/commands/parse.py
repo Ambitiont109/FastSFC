@@ -13,53 +13,10 @@ from app.core.models import Document, Company
 from app.core.helpers.s3 import S3
 
 
-def convert_file(ticker, doc, input_path, output_path, filetype):
-    try:
-        print 'Converting file: {}'.format(input_path)
-        sys.stdout.flush()
-
-        if not os.path.isfile(output_path):
-            subprocess.check_call(['pdf2txt.py', '-o', output_path, '-t', filetype, input_path])
-
-        key = ticker + '/' + output_path[output_path.rfind("/")+1:]
-        url = S3().create_file(key, output_path)
-
-        doc.refresh_from_db()
-        if not doc.meta:
-            doc.meta = {}
-
-        # use txt instead of text as key
-        filetype = filetype.replace('text', 'txt')
-        doc.meta[filetype] = url
-        doc.save()
-
-        # if doc is not indexed, add to elastic
-        if 'txt' in doc.meta and 'indexed' not in doc.meta:
-            index(doc)
-
-        print 'Created {}'.format(output_path)
-    except Exception as e:
-        print 'Failed to create doc {}: {}'.format(doc.id, e)
-
-
-def save_file(doc, key, path, filetype):
-    try:
-        print 'Saving file: {}'.format(path)
-        sys.stdout.flush()
-
-        url = S3().create_file(key, path)
-
-        doc.refresh_from_db()
-        if not doc.meta:
-            doc.meta = {}
-
-        doc.meta[filetype] = url
-        doc.save()
-    except Exception as e:
-        print 'Failed to save doc {}: {}'.format(doc.id, e)
-
-
 class Command(BaseCommand):
+    """
+    Deprecated, moved to scraper. Caches, parses and indexes HKEx filings.
+    """
     help = ('Parse PDF documents')
     asset_root = '../assets/'
 
