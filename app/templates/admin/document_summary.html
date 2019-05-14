@@ -1,5 +1,6 @@
 {% extends "admin/change_list.html" %}
 {% load humanize %}
+{% load filters %}
 
 {% block content_title %}
     <h1>Document Summary</h1>
@@ -15,6 +16,63 @@
                 <td>{{ row.key }}</td>
                 <td align="right">{{ row.value|intcomma }}</td>
             </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Cached (i.e. filings saved to Amazon S3)</h2>
+    <table>
+        <tbody>
+            {% for row in cached %}
+            {% if row.type == 'int' %}
+            <tr>
+                <td>{{ row.key }}</td>
+                <td align="right">{{ row.value|intcomma }}</td>
+            </tr>
+            {% endif %}
+            {% if row.type == 'percentage' %}
+            <tr>
+                <td>{{ row.key }}</td>
+                <td align="right">{{ row.value|percentage:2 }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Parsed (i.e. pdf filings parsed to txt and html format)</h2>
+    <table>
+        <tbody>
+            {% for row in parsed %}
+            {% if row.type == 'int' %}
+            <tr>
+                <td>{{ row.key }}</td>
+                <td align="right">{{ row.value|intcomma }}</td>
+            </tr>
+            {% endif %}
+            {% if row.type == 'percentage' %}
+            <tr>
+                <td>{{ row.key }}</td>
+                <td align="right">{{ row.value|percentage:2 }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>Indexed (i.e. filings indexed by elasticsearch)</h2>
+    <table>
+        <tbody>
+            {% for row in indexed %}
+            {% if row.type == 'int' %}
+            <tr>
+                <td>{{ row.key }}</td>
+                <td align="right">{{ row.value|intcomma }}</td>
+            </tr>
+            {% endif %}
+            {% if row.type == 'percentage' %}
+            <tr>
+                <td>{{ row.key }}</td>
+                <td align="right">{{ row.value|percentage:2 }}</td>
+            </tr>
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

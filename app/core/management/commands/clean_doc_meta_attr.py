@@ -34,7 +34,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         docs = Document.objects.filter(
-            company__exchange_id=1,
             meta__isnull=False,
         )
 

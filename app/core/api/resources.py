@@ -78,9 +78,6 @@ class PriceSerializer(serializers.ModelSerializer):
         fields = ('company', 'date', 'open', 'close', 'high', 'low', 'adj_close', 'volume')
 
 
-# Filters
-
-
 class PriceFilter(django_filters.FilterSet):
     ticker = django_filters.CharFilter(name='company__ticker')
     date_from = django_filters.DateFilter(name='date', lookup_type='gte')
@@ -129,15 +126,9 @@ class RelevantSearchFilter(SearchFilter):
         ).order_by('-custom_order')
 
 
-# Pagination
-
-
 class PricePagination(pagination.LimitOffsetPagination):
     default_limit = 251
     max_limit = 1000
-
-
-# ViewSets
 
 
 class WatchlistViewSet(viewsets.ModelViewSet):

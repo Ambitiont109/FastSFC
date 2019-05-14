@@ -231,7 +231,7 @@ class Search extends React.Component {
                     ? 'suggestion selectable cursor'
                     : 'suggestion selectable'
                 }
-                href={c.ticker ? '/company/' + c.ticker : '#'}>
+                href={c.ticker ? '/company/' + c.ticker : '/company/' + c.id}>
                 {this.formatCompany(c)}
               </a>
             ))}
