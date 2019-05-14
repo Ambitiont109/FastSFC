@@ -57,6 +57,9 @@ class S3(object):
         except:
             return False
 
+    def url_from_key(self, key):
+        return 'https://s3-{}.amazonaws.com/{}/{}'.format(self.region, self.bucket, key)
+
     def create_bucket(self, name):
         try:
             self.session.create_bucket(
