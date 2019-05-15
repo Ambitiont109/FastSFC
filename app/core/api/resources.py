@@ -55,11 +55,12 @@ class WatchlistSerializer(serializers.ModelSerializer):
 class DocumentSerializer(serializers.ModelSerializer):
     company = CompanySerializer()
     cat = DocumentCategorySerializer()
+    meta = JSONSerializerField()
     subcat = serializers.StringRelatedField()
 
     class Meta:
         model = Document
-        fields = ('id', 'company', 'cat', 'subcat', 'date', 'description', 'filetype', 'size', 'url', 'last_updated')
+        fields = ('id', 'company', 'cat', 'subcat', 'date', 'description', 'filetype', 'meta', 'size', 'url', 'last_updated')
 
 
 class WebsiteDocumentSerializer(serializers.ModelSerializer):

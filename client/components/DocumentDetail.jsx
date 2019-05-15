@@ -51,12 +51,23 @@ class DocumentDetail extends Component {
     const { data } = this.state;
     const filetype = data.url.split('.').pop();
     const isMobile = window.matchMedia('(max-device-width: 768px)').matches;
-    let fileLoader = <iframe title={data.url} src={data.url} />;
+    let { url } = data;
+
+    if (
+      data.company.exchange === 'NYSE' ||
+      data.company.exchange === 'NASDAQ' ||
+      data.company.exchange === 'AMEX' ||
+      data.company.exchange === 'US'
+    ) {
+      url = data.meta[1].cached_url;
+    }
+
+    let fileLoader = <iframe title={url} src={url} />;
 
     if (filetype.toLowerCase() === 'pdf') {
       fileLoader = (
-        <object data={data.url} type="application/pdf">
-          <embed src={data.url} type="application/pdf" />
+        <object data={url} type="application/pdf">
+          <embed src={url} type="application/pdf" />
         </object>
       );
     }
@@ -82,7 +93,7 @@ class DocumentDetail extends Component {
             <h1>{data.description}</h1>
             <div className="description">
               <span>{data.company.short_name}</span>
-              <span>{'HKSE:' + data.company.ticker}</span>
+              <span>{data.company.exchange + ':' + data.company.ticker}</span>
               <span>{F.date(data.date)}</span>
             </div>
             <div className="actions">

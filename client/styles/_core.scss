@@ -84,6 +84,7 @@
 
   .description {
     span {
+      display: inline-block;
       color: $gray;
       padding-right: 13px;
     }
@@ -208,10 +209,14 @@ hr {
 
   .auth-inset {
     color: #fff;
-    border: 1px solid #fff;
-    border-radius: 5px;
     margin-top: 120px;
     padding: 30px;
+    border-radius: 5px;
+    background-color: rgba(50, 50, 50, 0.8);
+
+    -webkit-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .3);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .3);
 
     h1 {
       text-align: center;
@@ -229,6 +234,7 @@ hr {
 
     a {
       color: #fff;
+      text-decoration: underline;
     }
 
     p {
@@ -256,6 +262,19 @@ hr {
       list-style-type: none;
       padding-left: 0px;
       margin-top: 4px;
+    }
+
+    @include respond-to(handhelds) {
+      border: none;
+      margin-top: 0px;
+      background-color: transparent;
+      box-shadow: none;
+    }
+  }
+
+  @include respond-to(handhelds) {
+    .brand {
+      display: none;
     }
   }
 }
@@ -500,26 +519,6 @@ hr {
     font-weight: bold;
     color: $gray-dark;
   }
-}
-
-/* ==========================================================================
-   Forms
-   ========================================================================== */
-
-.btn {
-  border-radius: 0px;
-}
-
-.btn-fixed {
-  min-width: 5em;
-}
-
-.btn-stub {
-  min-width: 3em;
-}
-
-.btn-mailing {
-  margin: 0px 0px !important;
 }
 
 /* ==========================================================================

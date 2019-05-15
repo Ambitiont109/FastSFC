@@ -142,9 +142,9 @@ class Document (models.Model):
     subcat = models.ForeignKey('core.DocumentSubcategory', null=True)
     url = models.URLField(null=True)
 
-    cached = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False)
-    parsed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False)
-    indexed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False)
+    cached = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False, db_index=True)
+    parsed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False, db_index=True)
+    indexed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False, db_index=True)
 
 
 class WebsiteDocument (models.Model):

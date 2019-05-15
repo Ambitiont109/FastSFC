@@ -20,7 +20,6 @@ class CompanyDocumentCategorized(ListView):
             else:
                 company = Company.objects.get(ticker=ticker)
 
-            layout = company.get_layout()
             financials = Document.objects.filter(
                 company=company,
                 cat__type='financials'
@@ -52,7 +51,6 @@ class CompanyDocumentCategorized(ListView):
             ).order_by('-date')[:9]
 
             return render(request, 'core/company_document.html', {
-                'layout': layout,
                 'ticker': ticker,
                 'company': company,
                 'financials': financials[:8],
@@ -85,10 +83,8 @@ class CompanyDocumentChrono(View):
             documents = Document.objects.filter(
                 company=company,
             ).order_by('-date')
-            layout = company.get_layout()
 
             return render(request, 'core/company_document_chrono.html', {
-                'layout': layout,
                 'ticker': ticker,
                 'company': company,
                 'count': documents.count,
@@ -242,12 +238,17 @@ class Latest(View):
 
 class DocumentDetail(View):
     def get(self, request, id):
-        document = Document.objects.get(id=id)
-        company = Company.objects.get(id=document.company_id)
+        doc = Document.objects.get(id=id)
+
+        # US SEC blocks access from iframe, so if document is US
+        # and not cached, redirect to SEC website
+        # if doc.company.get_layout() == 'us' and doc.cached != Document.SUCCESS:
+        if doc.company.get_layout() == 'us':
+            return HttpResponseRedirect(doc.url)
 
         return render(request, 'core/document.html', {
-            'document': document,
-            'company': company,
+            'document': doc,
+            'company': doc.company,
         })
 
 
