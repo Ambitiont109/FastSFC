@@ -57,20 +57,19 @@ class Command(BaseCommand):
             try:
                 content_type = s3.content_type_from_key(item['Key'])
 
-                if item['ContentType'] != content_type:
-                    print 'Copying', item['Key'], content_type
+                print 'Copying', item['Key'], content_type
 
-                    client.copy_object(
-                        CopySource = {
-                            'Bucket': self.input_bucket,
-                            'Key': item['Key']
-                        },
-                        ACL = 'public-read',
-                        Bucket = self.output_bucket,
-                        ContentType = content_type,
-                        Key = item['Key'],
-                        MetadataDirective = 'REPLACE',
-                    )
+                client.copy_object(
+                    CopySource = {
+                        'Bucket': self.input_bucket,
+                        'Key': item['Key']
+                    },
+                    ACL = 'public-read',
+                    Bucket = self.output_bucket,
+                    ContentType = content_type,
+                    Key = item['Key'],
+                    MetadataDirective = 'REPLACE',
+                )
 
                 if not self.run_for_all:
                     count += 1
