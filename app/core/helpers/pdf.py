@@ -1,5 +1,5 @@
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer.convert_pdf_to_txt import TextConverter, HTMLConverter
+from pdfminer.converter import TextConverter, HTMLConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from cStringIO import StringIO
