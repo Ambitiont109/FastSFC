@@ -1,6 +1,8 @@
 FastSFC
 ======================
 
+FastSFC is a search engine for listed company documents. We currently support documents on HKSE, NYSE, NASDAQ and AMEX. Website: http://fastsfc.com
+
 ## Dependencies
 
 FastSFC's webapp runs on Django, React and MySQL. You will need the following dependencies in order to set it up:
@@ -49,7 +51,7 @@ exit
 
 ** Seed database**
 
-Download and install seed database from [url](https://drive.google.com/file/d/1WbX110mSqSZDD9u_4XRVgceOQQfAuiQI/view?usp=drive_open). (will take a while as database is 1.5GB)
+Download and install seed database from [url](https://drive.google.com/open?id=1nj9MKAMwonmMhQj92TZR0-VN_abCitQ5). (will take a while as database is 1.5GB)
 
 Migrate to update table structure.
 ```
