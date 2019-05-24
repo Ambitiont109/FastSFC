@@ -4,7 +4,8 @@ from django.conf import settings
 from elasticsearch_dsl import Document, Date, Integer, Keyword, Text, connections, analyzer
 
 
-connections.create_connection(
+# Connect to ES
+es = connections.create_connection(
     hosts=[settings.ES_HOST],
     http_auth=(settings.ES_USER, settings.ES_PASSWORD),
     use_ssl=settings.ES_USE_SSL,
@@ -30,3 +31,4 @@ class ESDocument(Document):
 
     class Index:
         name = 'document'
+

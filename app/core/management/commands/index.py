@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import sys
+import base64
 import subprocess
 import urllib2
 import traceback
@@ -21,16 +22,16 @@ def index(doc):
         # Get the URL of the main document depending on exchange
         ex = doc.company.exchange_id
         if ex == 1:
-            input_url = doc.meta['txt']
+            input_url = doc.url
         elif ex == 5 or ex == 6 or ex == 7 or ex == 8:
             input_url = doc.meta['1']['cached_url']
 
         # Start indexing
         print 'Indexing {}'.format(input_url)
-        sys.stdout.flush()
 
         input_file = urllib2.urlopen(input_url, timeout=300)
-        body = input_file.read().decode('utf-8', 'ignore')
+        data = input_file.read()
+        body = base64.b64encode(data)
 
         cat_name = None
         cat_type = None
@@ -62,10 +63,10 @@ def index(doc):
             type=cat_type,
             url=doc.url,
         )
-        search_doc.save()
+        search_doc.save(pipeline='attachment')
     except Exception as e:
-        print 'Error {}: {}'.format(doc.id, e)
-        sys.stdout.flush()
+        print '{}.{}: {}'.format(doc.company.ticker, doc.id, e)
+        traceback.print_exc()
 
     doc.indexed = Document.SUCCESS
     doc.save()
@@ -81,23 +82,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         ticker = options['ticker']
         reindex = options['reindex']
-        # self.pool = Pool(processes=10)
 
-        res = connections.create_connection(
-            hosts=[settings.ES_HOST],
-            http_auth=(settings.ES_USER, settings.ES_PASSWORD),
-            use_ssl=settings.ES_USE_SSL,
-            ca_certs=certifi.where(),
+        docs = Document.objects.filter(
+            company__ticker=ticker,
+            meta__isnull=False
         )
-        print res
 
-        ESDocument.init()
-
-        docs = Document.objects.filter(company__ticker=ticker, meta__isnull=False)
-        for doc in docs:
+        for doc in docs.iterator():
             try:
-                if (reindex or not 'indexed' in doc.meta) and 'txt' in doc.meta:
-                    # self.pool.apply_async(index, (doc,))
+                if reindex or doc.indexed == Document.NOT_STARTED:
                     index(doc)
             except Exception as e:
                 traceback.print_exc()
