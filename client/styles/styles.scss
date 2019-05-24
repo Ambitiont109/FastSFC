@@ -7,6 +7,10 @@ $fa-font-path: "~font-awesome/fonts";
 @import "bootstrap";
 @import "mixins";
 
+/* ==========================================================================
+   General
+   ========================================================================== */
+
 html {
   height: 100%;
 }
@@ -40,6 +44,15 @@ h4 {
   font-weight: 300;
 }
 
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
 .one-page-fill {
   background-image: url('#{$metisa-static-path}/bg.png');
   background-size: cover;
@@ -47,98 +60,14 @@ h4 {
   overflow-y: hidden;
 }
 
-.hero {
-  h1 {
-    font-size: 60px;
-    letter-spacing: 0.5px;
-    font-weight: bold;
-    color: #fff;
-  }
-
-  .content {
-    padding: 70px 70px 150px;
-  }
-}
-
-.hero-landing {
-  position: relative;
-
-  h2 {
-    max-width: 650px;
-  }
-}
-
-.section-landing {
-  padding: 50px 70px;
-}
-
-.section-content {
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    color: $text-color;
-    margin-top: 30px;
-    margin-bottom: 5px;
-    color: $text-color;
-  }
+.centered {
+  text-align: center;
 }
 
 .section-inv {
   background-color: $gray-lighter;
 }
 
-.features {
-  h4 {
-    max-width: 600px;
-  }
-
-  .feature {
-    text-align: center;
-
-    img {
-      margin: 30px 0px;
-    }
-
-    .brand-title {
-      color: $brand-primary;
-      margin-top: 30px;
-      font-weight: bold;
-      font-size: 16px;
-      letter-spacing: 2px;
-    }
-
-    .title {
-      font-weight: 400;
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-
-    .text {
-      font-size: 16px;
-      line-height: 22px;
-      margin-bottom: 15px;
-    }
-  }
-
-  &.features-center {
-    h3 {
-      text-align: center;
-      font-weight: bold;
-    }
-  }
-
-  img {
-    width: 120px;
-  }
-}
-
-.case-studies {
-  padding: 0px;
-  background-color: $brand-primary;
-
-}
-
-/* Navbar */
 .navbar-toggle .icon-bar {
   background-color: #fff;
   height: 3px;
@@ -170,54 +99,20 @@ h4 {
   }
 }
 
-.navbar {
-  list-style-type: none;
-  font-size: 16px;
-  display: inline-block;
-  color: #fff;
-  width: 100%;
-  padding: 30px 40px;
-
-  .navbar-brand {
-    padding: 6px 12px;
-  }
-
-  .contact {
-    padding-top: 9px;
-  }
-}
-
-.search-nav {
-  .contact {
-    padding-top: 13px;
-    font-size: 16px;
+@media only screen and (max-width: 768px) {
+  .dropdown-menu > li > a {
     color: #fff;
   }
 }
 
-.nav {
-  > li {
-    margin-right: 15px;
-
-    > a {
-      color: #fff;
-
-      &:hover {
-        background-color: transparent;
-      }
-    }
-  }
-}
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
 
 .btn {
   font-size: 16px;
   font-weight: 300;
   border-radius: 3px;
-
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: color, background-color;
-  transition-property: color, background-color;
 }
 
 .btn-default {
@@ -244,6 +139,22 @@ h4 {
     border: 1px solid #fff !important;
     background-color: transparent !important;
     color: #fff;
+  }
+}
+
+.btn-watchlist {
+  vertical-align: text-bottom;
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 2px 5px;
+  color: $gray-light;
+  border: 1px solid $gray-light;
+  background-color: transparent;
+
+  &:hover, &:focus, &.active {
+    outline: none !important;
+    color: $gray-medium;
+    border: 1px solid $gray-medium;
   }
 }
 
@@ -275,88 +186,22 @@ h4 {
   }
 }
 
+.btn-link {
+  background-color: transparent;
+  color: $brand-primary;
+  border: none;
+  font-weight: 300;
+
+  &:hover, &:focus {
+    text-decoration: underline;
+    outline: none !important;
+  }
+}
+
 .btn-sm {
   float: right;
   font-size: 16px;
   padding: 0px;
-}
-
-.footer {
-  background-image: url('#{$metisa-static-path}/bg.png');
-  background-size: cover;
-  padding: 30px 15px;
-  color: #fff;
-
-  .copyright {
-    text-align: center;
-    margin-bottom: 5px;
-
-    span {
-      font-weight: bold;
-      padding-right: 10px;
-
-      > a {
-        font-weight: 300;
-        color: white;
-      }
-    }
-  }
-
-  .address {
-    text-align: center;
-  }
-}
-
-.footer-light {
-  background-image: none;
-  background-color: $gray-lighter;
-  border-top: 1px solid $gray-light;
-  color: $text-color;
-
-  .copyright {
-    text-align: center;
-    margin-bottom: 5px;
-
-    span {
-      font-weight: bold;
-      padding-right: 10px;
-
-      > a {
-        font-weight: 300;
-        color: $text-color;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .hero {
-    .content {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
-
-  .navbar {
-    padding: 0px;
-
-    .btn-default {
-      text-align: left;
-      border: 0px;
-
-      &:hover, &:focus {
-        background-color: transparent;
-      }
-    }
-  }
-
-  .section-landing {
-    padding: 20px 15px;
-  }
-
-  .dropdown-menu > li > a {
-    color: #fff;
-  }
 }
 
 @import "graph";

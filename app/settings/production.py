@@ -59,3 +59,5 @@ TEMPLATES = [
         },
     },
 ]
+
+SITE_HOST = "http://fastsfc.com"

@@ -17,7 +17,6 @@ class DocumentList extends Component {
       placeholder: 'Loading...',
       ticker: window.location.pathname.split('/').pop(),
       type: props.type || '',
-      market: props.market,
       limit: props.limit || 10,
       offset: props.offset || 0,
       format: props.format || 'categorized',
@@ -63,7 +62,7 @@ class DocumentList extends Component {
   }
 
   renderSuccess() {
-    const { documents, data, limit, format, market } = this.state;
+    const { documents, data, limit, format } = this.state;
 
     if (!documents || !data) {
       this.renderError();
@@ -79,50 +78,14 @@ class DocumentList extends Component {
       this.$loadMoreButton.hide();
     }
 
-    // HK market
-    if (market === 'hk') {
-      if (format === 'categorized') {
-        return (
-          <React.Fragment>
-            {documents.map(d => (
-              <tr key={d.id}>
-                <td className="ellipsis">{F.date(d.date)}</td>
-                <td className="ellipsis">
-                  <a href={'/document/' + d.id}>{d.description}</a>
-                </td>
-              </tr>
-            ))}
-          </React.Fragment>
-        );
-      }
-
-      return (
-        <React.Fragment>
-          {documents.map(d => (
-            <tr key={d.id}>
-              <td className="ellipsis">{F.date(d.date)}</td>
-              <td className="ellipsis">{F.capitalize(d.cat.type)}</td>
-              <td className="ellipsis">
-                <a href={'/document/' + d.id}>{d.description}</a>
-              </td>
-            </tr>
-          ))}
-        </React.Fragment>
-      );
-    }
-
-    // US market
     if (format === 'categorized') {
       return (
         <React.Fragment>
           {documents.map(d => (
             <tr key={d.id}>
               <td className="ellipsis">{F.date(d.date)}</td>
-              <td className="ellipsis">{d.cat.name}</td>
               <td className="ellipsis">
-                <a href={d.url} target="_blank" rel="noopener noreferrer">
-                  {d.description}
-                </a>
+                <a href={'/document/' + d.id}>{d.description}</a>
               </td>
             </tr>
           ))}
@@ -135,11 +98,9 @@ class DocumentList extends Component {
         {documents.map(d => (
           <tr key={d.id}>
             <td className="ellipsis">{F.date(d.date)}</td>
-            <td className="ellipsis">{F.capitalize(d.cat.name)}</td>
+            <td className="ellipsis">{F.capitalize(d.cat.type)}</td>
             <td className="ellipsis">
-              <a href={d.url} target="_blank" rel="noopener noreferrer">
-                {d.description}
-              </a>
+              <a href={'/document/' + d.id}>{d.description}</a>
             </td>
           </tr>
         ))}
@@ -167,7 +128,6 @@ DocumentList.propTypes = {
   format: PropTypes.oneOf(['categorized', 'chronological']),
   offset: PropTypes.number,
   limit: PropTypes.number,
-  market: PropTypes.string,
 };
 
 export default hot(module)(DocumentList);

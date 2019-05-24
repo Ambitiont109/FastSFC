@@ -2,6 +2,9 @@ from django.contrib.auth.models import User
 from django.db.models import Case, IntegerField, Value, When
 from rest_framework import pagination, routers
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from app.core.api.shared import *
 from app.core.models import (
@@ -134,10 +137,53 @@ class PricePagination(pagination.LimitOffsetPagination):
 
 class WatchlistViewSet(viewsets.ModelViewSet):
     serializer_class = WatchlistSerializer
+    lookup_value_regex = '[^/]+'
+
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        user = self.request.user
-        return Watchlist.objects.filter(user=user)
+        return Watchlist.objects.filter(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        company = request.data.get('company')
+        user = request.user
+        meta = request.data.get('meta', {})
+
+        company_filter = self._get_filter(company)
+        company_id = get_object_or_404(
+            Company.objects.all().values_list('id', flat=True),
+            **company_filter
+        )
+
+        watching_list, _ = Watchlist.objects.get_or_create(
+            user_id=user.id,
+            company_id=company_id,
+        )
+
+        if watching_list.meta != meta:
+            watching_list.meta = meta
+            watching_list.save()
+
+        serializer = WatchlistSerializer(watching_list)
+        return Response(serializer.data)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        queryset = self.filter_queryset(queryset)
+
+        needle = self.kwargs[self.lookup_field]
+        filter = self._get_filter(needle, 'company__')
+
+        obj = get_object_or_404(queryset, **filter)
+        self.check_object_permissions(self.request, obj)
+
+        return obj
+
+    def _get_filter(self, needle, prefix=''):
+        if needle.isdigit():
+            return {prefix + 'id': needle}
+        else:
+            return {prefix + 'ticker': needle}
 
 
 class ExchangeViewSet(viewsets.ModelViewSet):

@@ -8,13 +8,13 @@ $bootstrap-sass-asset-helper: false !default;
 //
 //## Gray and brand colors for use across Bootstrap.
 
-$gray-base:              #000 !default;
-$gray-darker:            lighten($gray-base, 13.5%) !default; // #222
-$gray-dark:              #484B54 !default;   // #333
-$gray:                   #969996 !default;
-$gray-medium:            #ddd;
-$gray-light:             lighten($gray-base, 80%) !default;
-$gray-lighter:           #F2F2F2 !default;
+$gray-base:             #000 !default;
+$gray-darker:           lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:             #484B54 !default;   // #333
+$gray:                  #969996 !default;
+$gray-medium:           lighten($gray-base, 50%);
+$gray-light:            lighten($gray-base, 80%) !default;
+$gray-lighter:          #F2F2F2 !default;
 
 $brand-primary:         #42B89E !default; // #42B89E
 $brand-primary-dark:    darken($brand-primary, 5%) !default;

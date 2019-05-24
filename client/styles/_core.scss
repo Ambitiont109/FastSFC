@@ -1,10 +1,16 @@
-.centered {
-  text-align: center;
-}
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
 
-.search-nav {
+#header-nav {
   background-color: $brand-primary;
   height: 50px;
+
+  .brand {
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 
   .nav > li {
     margin-right: 0px;
@@ -18,6 +24,7 @@
     &:hover,
     &:focus {
       text-decoration: none;
+      background-color: transparent;
     }
   }
 
@@ -27,19 +34,58 @@
 
   .navbar-right {
     margin-right: 10px;
+    font-size: 15px;
 
     > li > a {
-      &:hover {
-        background-color: $brand-primary-light;
-      }
+      cursor: pointer;
+      padding: 15px;
+      color: #fff;
+    }
+
+    .contact {
+      padding: 15px;
+      color: #fff;
     }
   }
-}
 
-.brand {
-  height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
+  &.index-nav {
+    padding: 30px 40px 50px 40px;
+    background-color: transparent;
+  }
+
+  @include respond-to(handhelds) {
+    &.index-nav {
+      padding: 0px;
+
+      .brand {
+        display: block;
+        margin-top: 10px;
+        padding: 0px;
+      }
+
+      .btn-default {
+        text-align: left;
+        border: 0px;
+
+        &:hover, &:focus {
+          background-color: transparent;
+        }
+      }
+    }
+
+    .brand {
+      display: none;
+    }
+
+    .query-view {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .navbar-right {
+      display: none;
+    }
+  }
 }
 
 .navbar-company {
@@ -73,7 +119,9 @@
 }
 
 .snapshot,
-.latest-filings {
+.content {
+  margin-bottom: 10px;
+
   h1 {
     font-size: 24px;
     font-weight: bold;
@@ -82,22 +130,20 @@
     margin-bottom: 5px;
   }
 
+  h3 {
+    font-size: 20px;
+  }
+
+  .company-name {
+    margin-right: 8px;
+  }
+
   .description {
     span {
       display: inline-block;
       color: $gray;
       padding-right: 13px;
     }
-  }
-
-  margin-bottom: 10px;
-}
-
-.document-list {
-  padding: 15px 0px;
-
-  h4 {
-    font-weight: bold;
   }
 }
 
@@ -165,37 +211,56 @@
   }
 }
 
-/* Links */
-a {
-  word-wrap: break-word;
-  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
-  transition: color 0.1s ease-in, background 0.1s ease-in;
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.footer {
+  background-image: url('#{$metisa-static-path}/bg.png');
+  background-size: cover;
+  padding: 30px 15px;
+  color: #fff;
+
+  .copyright {
+    text-align: center;
+    margin-bottom: 5px;
+
+    span {
+      font-weight: bold;
+      padding-right: 10px;
+
+      > a {
+        font-weight: 300;
+        color: white;
+      }
+    }
+  }
+
+  .address {
+    text-align: center;
+  }
 }
 
-a:hover,
-a:focus {
-    outline: 0;
-}
+.footer-light {
+  background-image: none;
+  background-color: $gray-lighter;
+  border-top: 1px solid $gray-light;
+  color: $text-color;
 
-a:before,
-a:after {
-  -webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -moz-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -ms-transition: color 0.1s ease-in, background 0.1s ease-in;
-  -o-transition: color 0.1s ease-in, background 0.1s ease-in;
-  transition: color 0.1s ease-in, background 0.1s ease-in;
-}
+  .copyright {
+    text-align: center;
+    margin-bottom: 5px;
 
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
+    span {
+      font-weight: bold;
+      padding-right: 10px;
+
+      > a {
+        font-weight: 300;
+        color: $text-color;
+      }
+    }
+  }
 }
 
 /* ==========================================================================
@@ -369,7 +434,7 @@ hr {
 }
 
 .table-document {
-  border-bottom: 2px solid $gray-medium;
+  border-bottom: 2px solid #ddd;
 
   .footnote {
     font-size: 12px;
@@ -472,8 +537,102 @@ hr {
 }
 
 /* ==========================================================================
+   Index page
+   ========================================================================== */
+
+.index-header {
+  position: relative;
+
+  h1 {
+    font-size: 60px;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  h2 {
+    max-width: 650px;
+  }
+
+  .content {
+    padding: 70px 70px 150px;
+  }
+
+  @include respond-to(handhelds) {
+    h1 {
+      font-size: 45px;
+    }
+
+    .content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+}
+
+.features {
+  h4 {
+    max-width: 600px;
+  }
+
+  .feature {
+    text-align: center;
+
+    img {
+      margin: 30px 0px;
+    }
+
+    .brand-title {
+      color: $brand-primary;
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+
+    .title {
+      font-weight: 400;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .text {
+      font-size: 16px;
+      line-height: 22px;
+      margin-bottom: 15px;
+    }
+  }
+
+  &.features-center {
+    h3 {
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+
+  img {
+    width: 120px;
+  }
+
+  @include respond-to(handhelds) {
+    .content {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+}
+
+/* ==========================================================================
    Document List
    ========================================================================== */
+
+.document-list {
+  padding: 15px 0px;
+
+  h4 {
+    font-weight: bold;
+  }
+}
 
 .document-list-chronological {
   @extend .col-md-10;
@@ -600,7 +759,7 @@ hr {
     }
 
     .suggestion:hover, .cursor {
-      background-color: $gray-lighter;
+      background-color: $gray-lighter !important;
     }
 
     .empty-message {
@@ -649,21 +808,6 @@ hr {
 }
 
 @media only screen and (max-width: 768px) {
-  .search-nav {
-    .brand {
-      display: none;
-    }
-
-    .query-view {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-
-    .navbar-right {
-      display: none;
-    }
-  }
-
   .document-list {
     padding-left: 0px;
     padding-right: 0px;

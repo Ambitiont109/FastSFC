@@ -208,9 +208,8 @@ class Search(View):
         })
 
 
-class Latest(View):
+class LatestIpos(View):
     def get(self, request):
-        one_week_ago = datetime.now() - timedelta(days=7)
         one_month_ago = datetime.now() - timedelta(days=30)
 
         new_issuers = Document.objects.filter(
@@ -221,47 +220,32 @@ class Latest(View):
                 'F-1/A',
                 'Application Proofs and Post Hearing Information Packs or PHIPs'
             ],
-            date__gte=one_week_ago,
+            date__gte=one_month_ago,
             company__ticker__isnull=True
         ).order_by('-date')
 
-        existing_issuers = Document.objects.filter(
-            cat__type='prospectuses',
-            date__gte=one_week_ago,
-            company__ticker__isnull=False
-        ).order_by('-date')
+        return render(request, 'core/leaderboards/latest_ipos.html', {
+            'data': new_issuers,
+        })
+
+
+class LatestProfitWarnings(View):
+    def get(self, request):
+        one_month_ago = datetime.now() - timedelta(days=30)
 
         profit_warnings = Document.objects.filter(
             description__contains='Profit Warning',
             date__gte=one_month_ago,
         ).order_by('-date')
 
-        # earnings = Document.objects.filter(
-        #     Q(description__icontains='Annual Report') |
-        #     Q(description__icontains='Interim Resport') |
-        #     Q(date__gte=one_month_ago),
-        # ).order_by('-date')
-
-        # dividends = Document.objects.filter(
-        #     Q(description__icontains='Dividend') |
-        #     Q(date__gte=one_month_ago),
-        # ).order_by('-date')
-
-        major_transactions = Document.objects.filter(
-            Q(description__contains='Major Transaction') |
-            Q(description__contains='Discloseable Transaction') |
-            Q(description__contains='Major and Connected Transaction'),
-            Q(date__gte=one_month_ago),
-        ).order_by('-date')
-
-        return render(request, 'core/latest.html', {
-            'profit_warnings': profit_warnings,
-            # 'dividends': dividends,
-            # 'earnings': earnings,
-            'major_transactions': major_transactions,
-            'new_issuers': new_issuers,
-            'existing_issuers': existing_issuers,
+        return render(request, 'core/leaderboards/latest_profit_warnings.html', {
+            'data': profit_warnings,
         })
+
+
+class Settings(View):
+    def get(self, request):
+        return render(request, 'account/settings.html')
 
 
 class DocumentDetail(View):

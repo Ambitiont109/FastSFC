@@ -7,7 +7,7 @@
 
 {% block content %}
 
-{% include 'includes/search_nav.html' %}
+{% include 'includes/nav.html' %}
 {% include 'includes/company_snapshot.html' %}
 
 <div class="content container">
@@ -15,7 +15,7 @@
     <div class="document-list-wrapper">
         <div class="col-md-6">
             {% if financials_count > 0 %}
-            <section id="document-financials" class="document-list ">
+            <section id="document-financials" class="document-list">
                 <h4>Financials</h4>
                 <table class="table table-document">
                     <thead>
@@ -33,7 +33,7 @@
                         {% endfor %}
                     </tbody>
                     {% if financials_count == 9 %}
-                    <tbody id="hk-document-financials-loader"></tbody>
+                    <tbody id="document-financials-loader"></tbody>
                     <tbody>
                         <tr>
                             <td colspan="2" class="load-more load-more-financials">
@@ -65,7 +65,7 @@
                         {% endfor %}
                     </tbody>
                     {% if prospectuses_count == 9 %}
-                    <tbody id="hk-document-prospectuses-loader"></tbody>
+                    <tbody id="document-prospectuses-loader"></tbody>
                     <tbody>
                         <tr>
                             <td colspan="2" class="load-more load-more-prospectuses">
@@ -97,7 +97,7 @@
                         {% endfor %}
                     </tbody>
                     {% if others_count == 9 %}
-                    <tbody id="hk-document-other-loader"></tbody>
+                    <tbody id="document-other-loader"></tbody>
                     <tbody>
                         <tr>
                             <td colspan="2" class="load-more load-more-other">
@@ -131,7 +131,7 @@
                         {% endfor %}
                     </tbody>
                     {% if announcements_count == 9 %}
-                    <tbody id="hk-document-announcements-loader"></tbody>
+                    <tbody id="document-announcements-loader"></tbody>
                     <tbody>
                         <tr>
                             <td colspan="2" class="load-more load-more-announcements">
@@ -163,7 +163,7 @@
                         {% endfor %}
                     </tbody>
                     {% if proxies_count == 9 %}
-                    <tbody id="hk-document-proxies-loader"></tbody>
+                    <tbody id="document-proxies-loader"></tbody>
                     <tbody>
                         <tr>
                             <td colspan="2" class="load-more load-more-proxies">

@@ -14,6 +14,7 @@ django-allauth==0.24.1
 xlrd
 functools32
 titlecase
+html2text==2018.1.9
 
 # Lint
 flake8
@@ -50,6 +51,3 @@ mysql-python
 
 # Testing
 nose
-
-# Docs
-sphinx

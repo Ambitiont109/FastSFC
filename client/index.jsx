@@ -1,13 +1,35 @@
 import _ from 'lodash';
+import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import DocumentList from './components/DocumentList.jsx';
 import DocumentDetail from './components/DocumentDetail.jsx';
 import Search from './components/Search';
+import Settings from './components/Settings';
+import Watch from './components/Watch';
+
+const profileDropdown = document.getElementById('profile-dropdown');
+if (profileDropdown !== null) {
+  const $toggle = $('#profile-dropdown .dropdown-toggle');
+  const $el = $(profileDropdown);
+  $toggle.click(() => {
+    $el.toggleClass('open');
+  });
+}
 
 const inputSearch = document.getElementById('input-search');
 if (inputSearch !== null) {
   ReactDOM.render(<Search />, inputSearch);
+}
+
+const watch = document.getElementById('watch-button');
+if (watch !== null) {
+  ReactDOM.render(<Watch />, watch);
+}
+
+const settings = document.getElementById('settings');
+if (settings !== null) {
+  ReactDOM.render(<Settings />, settings);
 }
 
 const documentDetail = document.getElementById('document-detail');
@@ -36,8 +58,6 @@ if (documentFinancialChronoLoader !== null) {
 }
 
 // Render document loader for each type
-const markets = ['hk', 'us'];
-
 const types = [
   'financials',
   'announcements',
@@ -47,17 +67,12 @@ const types = [
   'other',
 ];
 
-_.each(markets, market => {
-  _.each(types, type => {
-    const el = market + '-document-' + type + '-loader';
-    const node = document.getElementById(el);
-    const f = 'categorized';
+_.each(types, type => {
+  const el = 'document-' + type + '-loader';
+  const node = document.getElementById(el);
+  const f = 'categorized';
 
-    if (node !== null) {
-      ReactDOM.render(
-        <DocumentList type={type} offset={8} format={f} market={market} />,
-        node
-      );
-    }
-  });
+  if (node !== null) {
+    ReactDOM.render(<DocumentList type={type} offset={8} format={f} />, node);
+  }
 });

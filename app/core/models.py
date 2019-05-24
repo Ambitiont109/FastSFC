@@ -1,7 +1,17 @@
-from django.db import models
-from django.core.urlresolvers import reverse
-from jsonfield import JSONField
+import logging
+
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.template import Context
+from django.template.loader import get_template
+from html2text import html2text
+from jsonfield import JSONField
+
+from app.core.helpers.emails import send_mass_html_mail
 
 
 class UserProfile(models.Model):
@@ -14,15 +24,18 @@ class Watchlist(models.Model):
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     meta = JSONField(null=True)
 
+    class Meta:
+        unique_together = ('company', 'user',)
 
-class Period (models.Model):
+
+class Period(models.Model):
     short_name = models.CharField(max_length=10, null=True)
 
     def __unicode__(self):
         return self.short_name
 
 
-class DocumentCategory (models.Model):
+class DocumentCategory(models.Model):
     name = models.CharField(max_length=200, null=False)
     type = models.CharField(max_length=200, null=False, default="other", db_index=True)
     description = models.CharField(max_length=1000, null=True)
@@ -34,7 +47,7 @@ class DocumentCategory (models.Model):
         verbose_name_plural = "Document Categories"
 
 
-class DocumentSubcategory (models.Model):
+class DocumentSubcategory(models.Model):
     name = models.CharField(max_length=1000, null=True)
 
     def __unicode__(self):
@@ -44,7 +57,7 @@ class DocumentSubcategory (models.Model):
         verbose_name_plural = "Document Subcategories"
 
 
-class Exchange (models.Model):
+class Exchange(models.Model):
     short_name = models.CharField(max_length=20, null=True)
     full_name = models.CharField(max_length=100, null=True)
 
@@ -52,7 +65,7 @@ class Exchange (models.Model):
         return self.short_name
 
 
-class Company (models.Model):
+class Company(models.Model):
     ticker = models.CharField(max_length=10, null=True, db_index=True)
     ticker_alt = models.CharField(max_length=100, null=True)
     exchange = models.ForeignKey('core.Exchange', null=True)
@@ -83,9 +96,9 @@ class Company (models.Model):
 
     def get_layout(self):
         if self.exchange.short_name == 'NYSE' \
-        or self.exchange.short_name == 'NASDAQ' \
-        or self.exchange.short_name == 'AMEX' \
-        or self.exchange.short_name == 'US':
+                or self.exchange.short_name == 'NASDAQ' \
+                or self.exchange.short_name == 'AMEX' \
+                or self.exchange.short_name == 'US':
             return 'us'
 
         return 'hk'
@@ -108,7 +121,7 @@ class Company (models.Model):
         verbose_name_plural = "Companies"
 
 
-class Document (models.Model):
+class Document(models.Model):
     FILETYPE_CHOICES = (
         ('pdf', 'pdf'),
         ('html', 'html'),
@@ -147,14 +160,14 @@ class Document (models.Model):
     indexed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False, db_index=True)
 
 
-class WebsiteDocument (models.Model):
+class WebsiteDocument(models.Model):
     company = models.ForeignKey('core.Company', null=True)
     url = models.URLField(null=True)
     description = models.CharField(max_length=1000, null=True)
     last_updated = models.DateTimeField(auto_now=True)
 
 
-class DocumentCount (models.Model):
+class DocumentCount(models.Model):
     company = models.ForeignKey('core.Company', null=False)
     actual_count = models.IntegerField(null=True)
     our_count = models.IntegerField(null=True)
@@ -165,7 +178,7 @@ class DocumentCount (models.Model):
         verbose_name_plural = "Document Counts"
 
 
-class Price (models.Model):
+class Price(models.Model):
     company = models.ForeignKey('core.Company', null=True)
     date = models.DateTimeField(null=True, db_index=True)
     open = models.FloatField(null=True)
@@ -176,7 +189,7 @@ class Price (models.Model):
     volume = models.FloatField(null=True)
 
 
-class Industry (models.Model):
+class Industry(models.Model):
     industry = models.CharField(max_length=100, null=True)
     supersector = models.CharField(max_length=100, null=True)
     sector = models.CharField(max_length=100, null=True)
@@ -184,7 +197,7 @@ class Industry (models.Model):
     code = models.CharField(max_length=10, null=True)
 
 
-class Source (models.Model):
+class Source(models.Model):
     name = models.CharField(max_length=255, null=False, unique=True, db_index=True)
     description = models.CharField(max_length=1000, null=True)
 
@@ -192,7 +205,7 @@ class Source (models.Model):
         return self.name
 
 
-class Metric (models.Model):
+class Metric(models.Model):
     name = models.CharField(max_length=255, null=False, unique=True, db_index=True)
     source = models.ForeignKey('core.Source', null=True, default=None)
     description = models.CharField(max_length=1000, null=True)
@@ -206,10 +219,69 @@ class Metric (models.Model):
         return Timeseries.objects.filter(metric_id__exact=self.id).count()
 
 
-class Timeseries (models.Model):
+class Timeseries(models.Model):
     metric = models.ForeignKey('core.Metric', null=False)
     start_date = models.DateTimeField(null=True)
     end_date = models.DateTimeField(null=True)
     type = models.CharField(max_length=20, null=True)
     value = models.FloatField(null=True)
     get_latest_by = 'date'
+
+
+"""
+ORM signals:
+"""
+
+
+@receiver(post_save, sender=Document)
+def send_notifications(sender, instance, created, **kwargs):
+    if not created:
+        # do not continue if it's a modification
+        return
+    try:
+        # precompile template
+        template = get_template("emails/document_notification.html")
+        # prepare subject
+        subject_template = "[FastSFC] {ticker} Disclosure Alert: {document_description}"
+        users_data = instance.company.watchlist_set.select_related(
+            'user', 'company'
+        ).values(
+            'company__ticker', 'user__username', 'user__email', 'company__short_name'
+        )
+        emails = []
+        host = settings.SITE_HOST
+        for user_data in users_data:
+            # generate email context
+            user_context = {
+                "username": user_data['user__username'],
+                "company_name": user_data['company__short_name'],
+                "company_ticker": user_data['company__ticker'],
+                "document_url": host + reverse('core:document_detail', kwargs={'id': 1}),
+                "document_date": instance.date,
+                "document_description": instance.description,
+                "company_url": host + reverse(
+                    'core:company_document_categorized',
+                    kwargs={
+                        'ticker': user_data['company__ticker']
+                    }
+                )
+            }
+            # generate an email
+            html_email = template.render(Context(user_context))
+            txt_email = html2text(html_email)
+
+            recipient = [user_data['user__email']]
+            subject = subject_template.format(
+                ticker=user_data['company__ticker'],
+                document_description=instance.description
+            )
+
+            # subject, text, html, from_email, recipient
+            emails.append([subject, txt_email, html_email, None, recipient])
+        # send a batch
+        send_mass_html_mail(emails, fail_silently=True)
+
+    except Exception as e:
+        # do not block saving if there is a problem with emails
+        # but log an error
+        logging.exception(e)

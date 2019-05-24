@@ -81,10 +81,3 @@ FastSFC is comprised of a webapp (django) and scraper (scrapy). If you have acce
 ```
 git clone https://justinyek@bitbucket.org/justinyek/fast-crawler.git scraper
 ```
-
-## Documentation [NOT UPDATED]
-
-Developer documentation is available in Sphinx format in the docs directory.
-
-Initial installation instructions (including how to build the documentation as
-HTML) can be found in docs/install.rst.

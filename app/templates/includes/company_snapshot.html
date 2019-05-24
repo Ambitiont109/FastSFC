@@ -1,5 +1,8 @@
 <section class="snapshot container">
-    <h1>{{ company.full_name }}</h1>
+    <h1>
+        <span class="company-name">{{ company.full_name }}</span>
+        <span id="watch-button"></span>
+    </h1>
     <div class="description">
         <span class="exchange-ticker">{{ company.exchange.short_name }}{% if company.ticker %}: {{ company.ticker }}{% endif %}</span>
         {% if company.website %}
