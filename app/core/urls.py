@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import admin
-from app.core.views import CompanyDocumentCategorized, CompanyDocumentChrono, CompanyDocumentWebsite, CompanyDocumentSearch, Search, LatestIpos, LatestProfitWarnings, DocumentDetail, WebsiteDocumentDetail, Settings
+from app.core.views import CompanyDocumentCategorized, CompanyDocumentChrono, CompanyDocumentWebsite, CompanyDocumentSearch, Search, Ipos, ProfitWarnings, DiscloseableTransactions, Dividends, Earnings, DocumentDetail, WebsiteDocumentDetail, Settings
 from app.core.sitemaps import sitemaps
 
 admin.autodiscover()
@@ -24,8 +24,11 @@ urlpatterns = patterns(
     url(r'^search/?$', Search.as_view(), name='search'),
 
     # leaderboards
-    url(r'^latest-ipos/?$', LatestIpos.as_view(), name='latest_ipos'),
-    url(r'^latest-profit-warnings/?$', LatestProfitWarnings.as_view(), name='latest_profit_warnings'),
+    url(r'^recent-ipos/?$', Ipos.as_view(), name='ipos'),
+    url(r'^recent-profit-warnings/?$', ProfitWarnings.as_view(), name='profit_warnings'),
+    url(r'^recent-discloseable-transactions/?$', DiscloseableTransactions.as_view(), name='discloseable_transactions'),
+    url(r'^recent-earnings/?$', Earnings.as_view(), name='earnings'),
+    url(r'^recent-dividends/?$', Dividends.as_view(), name='dividends'),
 
     # private
     url(r'^settings/?$', Settings.as_view(), name='settings'),

@@ -13,6 +13,9 @@
 <div class="content container">
     {% include 'includes/sidebar.html' with active='categorized' %}
     <div class="document-list-wrapper">
+        {% if empty %}
+        <div class="empty">No results found.</div>
+        {% else %}
         <div class="col-md-6">
             {% if financials_count > 0 %}
             <section id="document-financials" class="document-list">
@@ -176,6 +179,7 @@
             </section>
             {% endif %}
         </div>
+        {% endif %}
     </div>
 </div>
 

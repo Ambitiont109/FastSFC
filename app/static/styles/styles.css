@@ -3046,24 +3046,24 @@ pre {
   max-height: 340px;
   overflow-y: scroll; }
 
-.container {
+.container, .leaderboard {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto; }
-  .container:before, .container:after {
+  .container:before, .leaderboard:before, .container:after, .leaderboard:after {
     display: table;
     content: " "; }
-  .container:after {
+  .container:after, .leaderboard:after {
     clear: both; }
   @media (min-width: 768px) {
-    .container {
+    .container, .leaderboard {
       width: 750px; } }
   @media (min-width: 992px) {
-    .container {
+    .container, .leaderboard {
       width: 970px; } }
   @media (min-width: 1200px) {
-    .container {
+    .container, .leaderboard {
       width: 1170px; } }
 
 .container-fluid {
@@ -5277,15 +5277,17 @@ tbody.collapse.in {
   margin-bottom: 0;
   border-width: 1px 0 0; }
 
-.container > .navbar-header,
+.container > .navbar-header, .leaderboard > .navbar-header,
 .container > .navbar-collapse,
+.leaderboard > .navbar-collapse,
 .container-fluid > .navbar-header,
 .container-fluid > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px; }
   @media (min-width: 768px) {
-    .container > .navbar-header,
+    .container > .navbar-header, .leaderboard > .navbar-header,
     .container > .navbar-collapse,
+    .leaderboard > .navbar-collapse,
     .container-fluid > .navbar-header,
     .container-fluid > .navbar-collapse {
       margin-right: 0;
@@ -5309,7 +5311,7 @@ tbody.collapse.in {
   .navbar-brand > img {
     display: block; }
   @media (min-width: 768px) {
-    .navbar > .container .navbar-brand,
+    .navbar > .container .navbar-brand, .navbar > .leaderboard .navbar-brand,
     .navbar > .container-fluid .navbar-brand {
       margin-left: -15px; } }
 
@@ -5836,18 +5838,18 @@ a.badge:hover, a.badge:focus {
     font-weight: 200; }
   .jumbotron > hr {
     border-top-color: #d9d9d9; }
-  .container .jumbotron,
+  .container .jumbotron, .leaderboard .jumbotron,
   .container-fluid .jumbotron {
     padding-right: 15px;
     padding-left: 15px;
     border-radius: 0px; }
-  .jumbotron .container {
+  .jumbotron .container, .jumbotron .leaderboard {
     max-width: 100%; }
   @media screen and (min-width: 768px) {
     .jumbotron {
       padding-top: 48px;
       padding-bottom: 48px; }
-      .container .jumbotron,
+      .container .jumbotron, .leaderboard .jumbotron,
       .container-fluid .jumbotron {
         padding-right: 60px;
         padding-left: 60px; }
@@ -8137,7 +8139,13 @@ Interactive Layer
   font-style: italic; }
 
 .search-results {
-  padding: 30px 15px; }
+  min-height: calc(100vh - 136px); }
+  .search-results h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #484B54;
+    margin-top: 20px;
+    margin-bottom: 5px; }
   .search-results.search-results-unpadded {
     padding: 15px 0px; }
   .search-results .search-result {
@@ -8161,11 +8169,12 @@ Interactive Layer
     .search-results .search-result .description span {
       color: #969996;
       padding-right: 13px; }
-  .search-results .search-results-empty p {
-    font-size: 16px; }
-  .search-results .search-results-empty .query-view {
-    margin-top: 20px;
-    margin-bottom: 30px; }
+  .search-results .search-results-empty {
+    padding-top: 15px;
+    padding-bottom: 15px; }
+    .search-results .search-results-empty p {
+      font-size: 16px;
+      padding-bottom: 10px; }
 
 /* ==========================================================================
    Footer
@@ -8412,7 +8421,9 @@ Interactive Layer
    Index page
    ========================================================================== */
 .index-header {
-  position: relative; }
+  position: relative;
+  background-image: url(../images/845c91c6d105c2afd971bd2246772348.png);
+  background-size: cover; }
   .index-header h1 {
     font-size: 60px;
     letter-spacing: 0.5px;
@@ -8421,13 +8432,20 @@ Interactive Layer
   .index-header h2 {
     max-width: 650px; }
   .index-header .content {
-    padding: 70px 70px 150px; }
+    padding: 50px 70px 120px; }
   @media only screen and (max-width: 768px) {
     .index-header h1 {
       font-size: 45px; }
     .index-header .content {
       padding-left: 20px;
       padding-right: 20px; } }
+
+.leaderboard h3 {
+  font-weight: bold; }
+
+.leaderboard a {
+  font-size: 16px;
+  line-height: 30px; }
 
 .features h4 {
   max-width: 600px; }
@@ -8471,12 +8489,22 @@ Interactive Layer
   .document-list h4 {
     font-weight: bold; }
 
-.document-list-chronological {
-  padding-top: 15px; }
+.document-list-chronological .table-document {
+  margin-top: 15px; }
+
+.document-list-chronological .empty {
+  min-height: calc(100vh - 216px);
+  padding-top: 20px;
+  font-size: 15px; }
 
 .document-list-wrapper .col-md-6 {
   padding-left: 10px;
   padding-right: 10px; }
+
+.document-list-wrapper .empty {
+  min-height: calc(100vh - 216px);
+  padding-top: 20px;
+  font-size: 15px; }
 
 @media only screen and (max-width: 768px) {
   .document-list-wrapper {

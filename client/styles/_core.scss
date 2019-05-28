@@ -154,7 +154,15 @@
 }
 
 .search-results {
-  padding: 30px 15px;
+  min-height: calc(100vh - 136px);
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: $text-color;
+    margin-top: 20px;
+    margin-bottom: 5px;
+  }
 
   &.search-results-unpadded {
     padding: 15px 0px;
@@ -200,13 +208,12 @@
   }
 
   .search-results-empty {
+    padding-top: 15px;
+    padding-bottom: 15px;
+
     p {
       font-size: 16px;
-    }
-
-    .query-view {
-      margin-top: 20px;
-      margin-bottom: 30px;
+      padding-bottom: 10px;
     }
   }
 }
@@ -542,6 +549,8 @@
 
 .index-header {
   position: relative;
+  background-image: url('#{$metisa-static-path}/bg.png');
+  background-size: cover;
 
   h1 {
     font-size: 60px;
@@ -555,7 +564,7 @@
   }
 
   .content {
-    padding: 70px 70px 150px;
+    padding: 50px 70px 120px;
   }
 
   @include respond-to(handhelds) {
@@ -567,6 +576,19 @@
       padding-left: 20px;
       padding-right: 20px;
     }
+  }
+}
+
+.leaderboard {
+  @extend .container;
+
+  h3 {
+    font-weight: bold;
+  }
+
+  a {
+    font-size: 16px;
+    line-height: 30px;
   }
 }
 
@@ -636,7 +658,16 @@
 
 .document-list-chronological {
   @extend .col-md-10;
-  padding-top: 15px;
+
+  .table-document {
+    margin-top: 15px;
+  }
+
+  .empty {
+    min-height: calc(100vh - 216px);
+    padding-top: 20px;
+    font-size: 15px;
+  }
 }
 
 .document-list-wrapper {
@@ -647,6 +678,11 @@
     padding-right: 10px;
   }
 
+  .empty {
+    min-height: calc(100vh - 216px);
+    padding-top: 20px;
+    font-size: 15px;
+  }
 }
 
 @media only screen and (max-width: 768px) {

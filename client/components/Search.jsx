@@ -188,7 +188,7 @@ class Search extends React.Component {
     const c = this.state.companies[this.state.cursor];
     if (c) {
       window.location = c.ticker ? '/company/' + c.ticker : '/company/' + c.id;
-    } else {
+    } else if (this.searchNode.value.length > 0) {
       window.location = '/search?q=' + this.searchNode.value;
     }
   };

@@ -2,7 +2,6 @@
 
 {% block title %}FastSFC - NYSE, NASDAQ and HKSE company reports{% endblock %}
 {% block description %}NYSE, NASDAQ and HKSE annual reports, interim reports, prospectuses, announcements and other public disclosures in a flash.{% endblock %}
-{% block body_class %}one-page-fill{% endblock %}
 
 {% block content %}
 
@@ -15,5 +14,16 @@
 		<div class="query-view col-md-8" id="input-search"></div>
 	</div>
 </header>
+<div class="leaderboard">
+    <h3>Quick References</h3>
+    <div class="row col-md-6">
+        <div class="item"><a href="/recent-ipos">Recent IPO Filings</a></div>
+        <div class="item"><a href="/recent-earnings">Recent Annuals and Quarterlies</a></div>
+        <div class="item"><a href="/recent-discloseable-transactions">Recent HK Discloseable Transactions</a></div>
+        <div class="item"><a href="/recent-profit-warnings">Recent HK Profit Warnings</a></div>
+    </div>
+    <div class="row col-md-6">
+    </div>
+</div>
 
 {% endblock %}

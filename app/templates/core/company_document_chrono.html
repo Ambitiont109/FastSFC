@@ -13,6 +13,9 @@
 <div class="content container">
     {% include 'includes/sidebar.html' with active='chronological' %}
     <div class="document-list-chronological">
+        {% if count == 0 %}
+        <div class="empty">No results found.</div>
+        {% else %}
         <table class="table table-document">
             <thead>
                 <tr>
@@ -41,6 +44,7 @@
                 {% endif %}
             </tbody>
         </table>
+        {% endif %}
     </div>
 </div>
 

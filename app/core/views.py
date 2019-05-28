@@ -20,6 +20,13 @@ class CompanyDocumentCategorized(ListView):
             else:
                 company = Company.objects.get(ticker=ticker)
 
+            if not Document.objects.filter(company=company).exists():
+                return render(request, 'core/company_document.html', {
+                    'ticker': ticker,
+                    'company': company,
+                    'empty': True,
+                })
+
             financials = Document.objects.filter(
                 company=company,
                 cat__type='financials'
@@ -53,6 +60,7 @@ class CompanyDocumentCategorized(ListView):
             return render(request, 'core/company_document.html', {
                 'ticker': ticker,
                 'company': company,
+                'empty': False,
                 'financials': financials[:8],
                 'financials_count': len(financials),
                 'announcements': announcements[:8],
@@ -208,11 +216,11 @@ class Search(View):
         })
 
 
-class LatestIpos(View):
+class Ipos(View):
     def get(self, request):
         one_month_ago = datetime.now() - timedelta(days=30)
 
-        new_issuers = Document.objects.filter(
+        data = Document.objects.filter(
             cat__name__in=[
                 'S-1',
                 'F-1',
@@ -224,22 +232,66 @@ class LatestIpos(View):
             company__ticker__isnull=True
         ).order_by('-date')
 
-        return render(request, 'core/leaderboards/latest_ipos.html', {
-            'data': new_issuers,
+        return render(request, 'core/leaderboards/ipos.html', {
+            'data': data,
         })
 
 
-class LatestProfitWarnings(View):
+class ProfitWarnings(View):
     def get(self, request):
         one_month_ago = datetime.now() - timedelta(days=30)
 
-        profit_warnings = Document.objects.filter(
+        data = Document.objects.filter(
             description__contains='Profit Warning',
             date__gte=one_month_ago,
         ).order_by('-date')
 
-        return render(request, 'core/leaderboards/latest_profit_warnings.html', {
-            'data': profit_warnings,
+        return render(request, 'core/leaderboards/profit_warnings.html', {
+            'data': data,
+        })
+
+
+class Earnings(View):
+    def get(self, request):
+        one_week_ago = datetime.now() - timedelta(days=7)
+
+        data = Document.objects.filter(
+            Q(cat__type="financials"),
+            Q(date__gte=one_week_ago),
+        ).order_by('-date')
+
+        return render(request, 'core/leaderboards/earnings.html', {
+            'data': data,
+        })
+
+
+class Dividends(View):
+    def get(self, request):
+        one_week_ago = datetime.now() - timedelta(days=7)
+
+        data = Document.objects.filter(
+            Q(description__contains='Dividend') |
+            Q(date__gte=one_month_ago),
+        ).order_by('-date')
+
+        return render(request, 'core/leaderboards/dividends.html', {
+            'data': data,
+        })
+
+
+class DiscloseableTransactions(View):
+    def get(self, request):
+        one_month_ago = datetime.now() - timedelta(days=30)
+
+        data = Document.objects.filter(
+            Q(description__contains='Major Transaction') |
+            Q(description__contains='Discloseable Transaction') |
+            Q(description__contains='Major and Connected Transaction'),
+            Q(date__gte=one_month_ago),
+        )
+
+        return render(request, 'core/leaderboards/discloseable_transactions.html', {
+            'data': data,
         })
 
 
