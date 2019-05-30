@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import admin
-from app.core.views import CompanyDocumentCategorized, CompanyDocumentChrono, CompanyDocumentWebsite, CompanyDocumentSearch, Search, Ipos, ProfitWarnings, DiscloseableTransactions, Dividends, Earnings, DocumentDetail, WebsiteDocumentDetail, Settings
+from app.core.views import CompanyDocumentCategorized, CompanyDocumentChrono, CompanyDocumentWebsite, CompanyDocumentSearch, CompanySearch, Ipos, ProfitWarnings, DiscloseableTransactions, Dividends, Earnings, DocumentDetail, WebsiteDocumentDetail, Settings
 from app.core.sitemaps import sitemaps
 
 admin.autodiscover()
@@ -21,7 +21,7 @@ urlpatterns = patterns(
     url(r'^company/(?P<ticker>[a-zA-Z0-9_.-]*)/search/?$', CompanyDocumentSearch.as_view(), name='company_document_search'),
     url(r'^document/(?P<id>[a-zA-Z0-9_.-]*)/?$', DocumentDetail.as_view(), name='document_detail'),
     url(r'^document/website/(?P<id>[a-zA-Z0-9_.-]*)/?$', WebsiteDocumentDetail.as_view(), name='website_document_detail'),
-    url(r'^search/?$', Search.as_view(), name='search'),
+    url(r'^search/?$', CompanySearch.as_view(), name='company_search'),
 
     # leaderboards
     url(r'^recent-ipos/?$', Ipos.as_view(), name='ipos'),

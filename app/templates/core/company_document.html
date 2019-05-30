@@ -12,7 +12,7 @@
 
 <div class="content container">
     {% include 'includes/sidebar.html' with active='categorized' %}
-    <div class="document-list-wrapper">
+    <div class="document-list-by-category">
         {% if empty %}
         <div class="empty">No results found.</div>
         {% else %}
@@ -24,13 +24,21 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
+                            {% if layout == 'us' %}
+                            <th class="col-md-2">Type</th>
+                            <th class="col-md-8">Description</th>
+                            {% else %}
                             <th class="col-md-10">Description</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for doc in financials %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
+                            {% if layout == 'us' %}
+                            <td class="ellipsis">{{ doc.cat.name }}</th>
+                            {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
                         </tr>
                         {% endfor %}
@@ -39,7 +47,7 @@
                     <tbody id="document-financials-loader"></tbody>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="load-more load-more-financials">
+                            <td colspan="3" class="load-more load-more-financials">
                               <a>More <i class="fa fa-angle-down"></i></a>
                             </td>
                         </tr>
@@ -56,13 +64,21 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
+                            {% if layout == 'us' %}
+                            <th class="col-md-2">Type</th>
                             <th class="col-md-8">Description</th>
+                            {% else %}
+                            <th class="col-md-10">Description</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for doc in prospectuses %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
+                            {% if layout == 'us' %}
+                            <td class="ellipsis">{{ doc.cat.name }}</th>
+                            {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
                         </tr>
                         {% endfor %}
@@ -71,7 +87,7 @@
                     <tbody id="document-prospectuses-loader"></tbody>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="load-more load-more-prospectuses">
+                            <td colspan="3" class="load-more load-more-prospectuses">
                               <a>More <i class="fa fa-angle-down"></i></a>
                             </td>
                         </tr>
@@ -88,13 +104,21 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
+                            {% if layout == 'us' %}
+                            <th class="col-md-2">Type</th>
+                            <th class="col-md-8">Description</th>
+                            {% else %}
                             <th class="col-md-10">Description</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for doc in others %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
+                            {% if layout == 'us' %}
+                            <td class="ellipsis">{{ doc.cat.name }}</th>
+                            {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
                         </tr>
                         {% endfor %}
@@ -103,7 +127,7 @@
                     <tbody id="document-other-loader"></tbody>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="load-more load-more-other">
+                            <td colspan="3" class="load-more load-more-other">
                               <a>More <i class="fa fa-angle-down"></i></a>
                             </td>
                         </tr>
@@ -122,13 +146,21 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
+                            {% if layout == 'us' %}
+                            <th class="col-md-2">Type</th>
+                            <th class="col-md-8">Description</th>
+                            {% else %}
                             <th class="col-md-10">Description</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for doc in announcements %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
+                            {% if layout == 'us' %}
+                            <td class="ellipsis">{{ doc.cat.name }}</th>
+                            {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
                         </tr>
                         {% endfor %}
@@ -137,7 +169,7 @@
                     <tbody id="document-announcements-loader"></tbody>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="load-more load-more-announcements">
+                            <td colspan="3" class="load-more load-more-announcements">
                               <a>More <i class="fa fa-angle-down"></i></a>
                             </td>
                         </tr>
@@ -154,13 +186,21 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
+                            {% if layout == 'us' %}
+                            <th class="col-md-2">Type</th>
+                            <th class="col-md-8">Description</th>
+                            {% else %}
                             <th class="col-md-10">Description</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
                         {% for doc in proxies %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
+                            {% if layout == 'us' %}
+                            <td class="ellipsis">{{ doc.cat.name }}</th>
+                            {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
                         </tr>
                         {% endfor %}
@@ -169,7 +209,7 @@
                     <tbody id="document-proxies-loader"></tbody>
                     <tbody>
                         <tr>
-                            <td colspan="2" class="load-more load-more-proxies">
+                            <td colspan="3" class="load-more load-more-proxies">
                               <a>More <i class="fa fa-angle-down"></i></a>
                             </td>
                         </tr>

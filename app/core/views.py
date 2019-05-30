@@ -20,6 +20,8 @@ class CompanyDocumentCategorized(ListView):
             else:
                 company = Company.objects.get(ticker=ticker)
 
+            layout = company.get_layout()
+
             if not Document.objects.filter(company=company).exists():
                 return render(request, 'core/company_document.html', {
                     'ticker': ticker,
@@ -61,6 +63,7 @@ class CompanyDocumentCategorized(ListView):
                 'ticker': ticker,
                 'company': company,
                 'empty': False,
+                'layout': layout,
                 'financials': financials[:8],
                 'financials_count': len(financials),
                 'announcements': announcements[:8],
@@ -88,6 +91,8 @@ class CompanyDocumentChrono(View):
             else:
                 company = Company.objects.get(ticker=ticker)
 
+            layout = company.get_layout()
+
             documents = Document.objects.filter(
                 company=company,
             ).order_by('-date')
@@ -95,6 +100,7 @@ class CompanyDocumentChrono(View):
             return render(request, 'core/company_document_chrono.html', {
                 'ticker': ticker,
                 'company': company,
+                'layout': layout,
                 'count': documents.count,
                 'documents': documents[:20]
             })
@@ -130,7 +136,6 @@ class CompanyDocumentWebsite(View):
 
 class CompanyDocumentSearch(View):
     def get_pagination(self, page, total_pages):
-
         has_prev = True if page > 1 else False
         has_next = True if page < total_pages else False
         start = max(page - 5, 1)
@@ -200,7 +205,7 @@ class CompanyDocumentSearch(View):
         })
 
 
-class Search(View):
+class CompanySearch(View):
     def get(self, request):
         params = request.GET
         query = params['q']

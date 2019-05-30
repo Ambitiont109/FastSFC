@@ -28,7 +28,11 @@
                 {% for doc in documents %}
                 <tr>
                     <td class="date">{{ doc.date|date:"d/m/y" }}</td>
+                    {% if layout == 'us' %}
+                    <td class="ellipsis">{{ doc.cat.name }}</td>
+                    {% else %}
                     <td class="ellipsis">{{ doc.cat.type|title }}</td>
+                    {% endif %}
                     <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
                 </tr>
                 {% endfor %}

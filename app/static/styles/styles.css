@@ -3046,24 +3046,24 @@ pre {
   max-height: 340px;
   overflow-y: scroll; }
 
-.container, .leaderboard {
+.container, .search-results, .leaderboard {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto; }
-  .container:before, .leaderboard:before, .container:after, .leaderboard:after {
+  .container:before, .search-results:before, .leaderboard:before, .container:after, .search-results:after, .leaderboard:after {
     display: table;
     content: " "; }
-  .container:after, .leaderboard:after {
+  .container:after, .search-results:after, .leaderboard:after {
     clear: both; }
   @media (min-width: 768px) {
-    .container, .leaderboard {
+    .container, .search-results, .leaderboard {
       width: 750px; } }
   @media (min-width: 992px) {
-    .container, .leaderboard {
+    .container, .search-results, .leaderboard {
       width: 970px; } }
   @media (min-width: 1200px) {
-    .container, .leaderboard {
+    .container, .search-results, .leaderboard {
       width: 1170px; } }
 
 .container-fluid {
@@ -3095,7 +3095,7 @@ pre {
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .sidebar, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, #website-document-detail .left,
 #document-detail .left, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, #website-document-detail .right,
-#document-detail .right, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .document-list-chronological, .document-list-wrapper, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+#document-detail .right, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .document-list-chronological, .document-list-by-category, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-right: 15px;
@@ -3366,7 +3366,7 @@ pre {
 @media (min-width: 992px) {
   .col-md-1, .col-md-2, .sidebar, .col-md-3, #website-document-detail .left,
   #document-detail .left, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, #website-document-detail .right,
-  #document-detail .right, .col-md-10, .document-list-chronological, .document-list-wrapper, .col-md-11, .col-md-12 {
+  #document-detail .right, .col-md-10, .document-list-chronological, .document-list-by-category, .col-md-11, .col-md-12 {
     float: left; }
   .col-md-1 {
     width: 8.33333%; }
@@ -3388,7 +3388,7 @@ pre {
   .col-md-9, #website-document-detail .right,
   #document-detail .right {
     width: 75%; }
-  .col-md-10, .document-list-chronological, .document-list-wrapper {
+  .col-md-10, .document-list-chronological, .document-list-by-category {
     width: 83.33333%; }
   .col-md-11 {
     width: 91.66667%; }
@@ -5277,16 +5277,18 @@ tbody.collapse.in {
   margin-bottom: 0;
   border-width: 1px 0 0; }
 
-.container > .navbar-header, .leaderboard > .navbar-header,
+.container > .navbar-header, .search-results > .navbar-header, .leaderboard > .navbar-header,
 .container > .navbar-collapse,
+.search-results > .navbar-collapse,
 .leaderboard > .navbar-collapse,
 .container-fluid > .navbar-header,
 .container-fluid > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px; }
   @media (min-width: 768px) {
-    .container > .navbar-header, .leaderboard > .navbar-header,
+    .container > .navbar-header, .search-results > .navbar-header, .leaderboard > .navbar-header,
     .container > .navbar-collapse,
+    .search-results > .navbar-collapse,
     .leaderboard > .navbar-collapse,
     .container-fluid > .navbar-header,
     .container-fluid > .navbar-collapse {
@@ -5311,7 +5313,7 @@ tbody.collapse.in {
   .navbar-brand > img {
     display: block; }
   @media (min-width: 768px) {
-    .navbar > .container .navbar-brand, .navbar > .leaderboard .navbar-brand,
+    .navbar > .container .navbar-brand, .navbar > .search-results .navbar-brand, .navbar > .leaderboard .navbar-brand,
     .navbar > .container-fluid .navbar-brand {
       margin-left: -15px; } }
 
@@ -5838,18 +5840,18 @@ a.badge:hover, a.badge:focus {
     font-weight: 200; }
   .jumbotron > hr {
     border-top-color: #d9d9d9; }
-  .container .jumbotron, .leaderboard .jumbotron,
+  .container .jumbotron, .search-results .jumbotron, .leaderboard .jumbotron,
   .container-fluid .jumbotron {
     padding-right: 15px;
     padding-left: 15px;
     border-radius: 0px; }
-  .jumbotron .container, .jumbotron .leaderboard {
+  .jumbotron .container, .jumbotron .search-results, .jumbotron .leaderboard {
     max-width: 100%; }
   @media screen and (min-width: 768px) {
     .jumbotron {
       padding-top: 48px;
       padding-bottom: 48px; }
-      .container .jumbotron, .leaderboard .jumbotron,
+      .container .jumbotron, .search-results .jumbotron, .leaderboard .jumbotron,
       .container-fluid .jumbotron {
         padding-right: 60px;
         padding-left: 60px; }
@@ -8489,25 +8491,25 @@ Interactive Layer
   .document-list h4 {
     font-weight: bold; }
 
-.document-list-chronological .table-document {
-  margin-top: 15px; }
+.document-list-chronological {
+  min-height: calc(100vh - 216px); }
+  .document-list-chronological .table-document {
+    margin-top: 15px; }
+  .document-list-chronological .empty {
+    padding-top: 20px;
+    font-size: 15px; }
 
-.document-list-chronological .empty {
-  min-height: calc(100vh - 216px);
-  padding-top: 20px;
-  font-size: 15px; }
-
-.document-list-wrapper .col-md-6 {
-  padding-left: 10px;
-  padding-right: 10px; }
-
-.document-list-wrapper .empty {
-  min-height: calc(100vh - 216px);
-  padding-top: 20px;
-  font-size: 15px; }
+.document-list-by-category {
+  min-height: calc(100vh - 216px); }
+  .document-list-by-category .col-md-6 {
+    padding-left: 10px;
+    padding-right: 10px; }
+  .document-list-by-category .empty {
+    padding-top: 20px;
+    font-size: 15px; }
 
 @media only screen and (max-width: 768px) {
-  .document-list-wrapper {
+  .document-list-by-category {
     padding-left: 0px;
     padding-right: 0px; } }
 
