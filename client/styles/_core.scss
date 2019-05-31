@@ -231,7 +231,7 @@
    ========================================================================== */
 
 .footer {
-  background-image: url('#{$metisa-static-path}/bg.png');
+  background-image: url('#{$metisa-static-path}/bg.jpg');
   background-size: cover;
   padding: 30px 15px;
   color: #fff;
@@ -283,7 +283,7 @@
    ========================================================================== */
 
 .auth-overlay {
-  background-image: url('#{$metisa-static-path}/bg.png');
+  background-image: url('#{$metisa-static-path}/bg.jpg');
   background-size: cover;
   height: 100vh;
 
@@ -534,7 +534,7 @@
 
 .index-header {
   position: relative;
-  background-image: url('#{$metisa-static-path}/bg.png');
+  background-image: url('#{$metisa-static-path}/bg.jpg');
   background-size: cover;
 
   h1 {

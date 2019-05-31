@@ -7382,7 +7382,7 @@ hr {
   padding: 0; }
 
 .one-page-fill {
-  background-image: url(../images/845c91c6d105c2afd971bd2246772348.png);
+  background-image: url(../images/a4fa93411e9a35558265cfadbcdc6bb7.jpg);
   background-size: cover;
   height: 100%;
   overflow-y: hidden; }
@@ -8185,7 +8185,7 @@ Interactive Layer
    Footer
    ========================================================================== */
 .footer {
-  background-image: url(../images/845c91c6d105c2afd971bd2246772348.png);
+  background-image: url(../images/a4fa93411e9a35558265cfadbcdc6bb7.jpg);
   background-size: cover;
   padding: 30px 15px;
   color: #fff; }
@@ -8220,7 +8220,7 @@ Interactive Layer
    Auth
    ========================================================================== */
 .auth-overlay {
-  background-image: url(../images/845c91c6d105c2afd971bd2246772348.png);
+  background-image: url(../images/a4fa93411e9a35558265cfadbcdc6bb7.jpg);
   background-size: cover;
   height: 100vh; }
   .auth-overlay .auth-inset {
@@ -8409,7 +8409,7 @@ Interactive Layer
    ========================================================================== */
 .index-header {
   position: relative;
-  background-image: url(../images/845c91c6d105c2afd971bd2246772348.png);
+  background-image: url(../images/a4fa93411e9a35558265cfadbcdc6bb7.jpg);
   background-size: cover; }
   .index-header h1 {
     font-size: 60px;
@@ -8616,3 +8616,5 @@ Interactive Layer
     height: auto;
     overflow-y: visible; } }
 
+
+/*# sourceMappingURL=styles.css.map*/

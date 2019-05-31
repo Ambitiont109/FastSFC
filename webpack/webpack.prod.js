@@ -14,14 +14,19 @@ module.exports = {
       {
         test: /\.(css|scss)$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
           {
             loader: 'css-loader',
             options: {
               sourceMap: false,
-              modules: true,
+              modules: false,
               camelCase: true,
-              localIdentName: '[local]___[hash:base64:5]',
+              // localIdentName: '[local]___[hash:base64:5]',
             },
           },
           'sass-loader',
