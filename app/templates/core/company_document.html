@@ -218,6 +218,46 @@
                 </table>
             </section>
             {% endif %}
+
+            {% if ownership_count > 0 %}
+            <section id="document-ownership" class="document-list">
+                <h4>Ownership</h4>
+                <table class="table table-document">
+                    <thead>
+                        <tr>
+                            <th class="col-md-2">Date</th>
+                            {% if company.layout == 'us' %}
+                            <th class="col-md-2">Type</th>
+                            <th class="col-md-8">Description</th>
+                            {% else %}
+                            <th class="col-md-10">Description</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doc in ownership %}
+                        <tr>
+                            <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
+                            {% if company.layout == 'us' %}
+                            <td class="ellipsis">{{ doc.cat.name }}</th>
+                            {% endif %}
+                            <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% if ownership_count == 9 %}
+                    <tbody id="document-ownership-loader"></tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="3" class="load-more load-more-ownership">
+                              <a>More <i class="fa fa-angle-down"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endif %}
+                </table>
+            </section>
+            {% endif %}
         </div>
         {% endif %}
     </div>
