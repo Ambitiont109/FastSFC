@@ -85,6 +85,16 @@ class Company(models.Model):
     def identifier(self):
         return self.ticker or self.id
 
+    @property
+    def layout(self):
+        if self.exchange.short_name == 'NYSE' \
+                or self.exchange.short_name == 'NASDAQ' \
+                or self.exchange.short_name == 'AMEX' \
+                or self.exchange.short_name == 'US':
+            return 'us'
+
+        return 'hk'
+
     def get_absolute_url(self):
         return reverse('core:company_document', kwargs={'ticker': self.ticker})
 
@@ -93,15 +103,6 @@ class Company(models.Model):
             return '<a href="%s">%s</a>' % (self.website, self.website)
         else:
             return ''
-
-    def get_layout(self):
-        if self.exchange.short_name == 'NYSE' \
-                or self.exchange.short_name == 'NASDAQ' \
-                or self.exchange.short_name == 'AMEX' \
-                or self.exchange.short_name == 'US':
-            return 'us'
-
-        return 'hk'
 
     def get_latest_document(self):
         try:

@@ -68,6 +68,9 @@ class DocumentList extends Component {
       this.renderError();
     }
 
+    // Get market
+    const market = documents[0].company.layout;
+
     // Increase offset
     this.state.offset += limit;
 
@@ -78,12 +81,46 @@ class DocumentList extends Component {
       this.$loadMoreButton.hide();
     }
 
+    // HK market
+    if (market === 'hk') {
+      if (format === 'categorized') {
+        return (
+          <React.Fragment>
+            {documents.map(d => (
+              <tr key={d.id}>
+                <td className="ellipsis">{F.date(d.date)}</td>
+                <td className="ellipsis">
+                  <a href={'/document/' + d.id}>{d.description}</a>
+                </td>
+              </tr>
+            ))}
+          </React.Fragment>
+        );
+      }
+
+      return (
+        <React.Fragment>
+          {documents.map(d => (
+            <tr key={d.id}>
+              <td className="ellipsis">{F.date(d.date)}</td>
+              <td className="ellipsis">{F.capitalize(d.cat.type)}</td>
+              <td className="ellipsis">
+                <a href={'/document/' + d.id}>{d.description}</a>
+              </td>
+            </tr>
+          ))}
+        </React.Fragment>
+      );
+    }
+
+    // US market
     if (format === 'categorized') {
       return (
         <React.Fragment>
           {documents.map(d => (
             <tr key={d.id}>
               <td className="ellipsis">{F.date(d.date)}</td>
+              <td className="ellipsis">{d.cat.name}</td>
               <td className="ellipsis">
                 <a href={'/document/' + d.id}>{d.description}</a>
               </td>
@@ -98,7 +135,7 @@ class DocumentList extends Component {
         {documents.map(d => (
           <tr key={d.id}>
             <td className="ellipsis">{F.date(d.date)}</td>
-            <td className="ellipsis">{F.capitalize(d.cat.type)}</td>
+            <td className="ellipsis">{F.capitalize(d.cat.name)}</td>
             <td className="ellipsis">
               <a href={'/document/' + d.id}>{d.description}</a>
             </td>

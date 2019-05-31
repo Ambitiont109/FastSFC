@@ -28,7 +28,7 @@
                 {% for doc in documents %}
                 <tr>
                     <td class="date">{{ doc.date|date:"d/m/y" }}</td>
-                    {% if layout == 'us' %}
+                    {% if company.layout == 'us' %}
                     <td class="ellipsis">{{ doc.cat.name }}</td>
                     {% else %}
                     <td class="ellipsis">{{ doc.cat.type|title }}</td>

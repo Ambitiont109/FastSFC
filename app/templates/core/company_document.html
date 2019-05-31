@@ -24,7 +24,7 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <th class="col-md-2">Type</th>
                             <th class="col-md-8">Description</th>
                             {% else %}
@@ -36,7 +36,7 @@
                         {% for doc in financials %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <td class="ellipsis">{{ doc.cat.name }}</th>
                             {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
@@ -64,7 +64,7 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <th class="col-md-2">Type</th>
                             <th class="col-md-8">Description</th>
                             {% else %}
@@ -76,7 +76,7 @@
                         {% for doc in prospectuses %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <td class="ellipsis">{{ doc.cat.name }}</th>
                             {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
@@ -104,7 +104,7 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <th class="col-md-2">Type</th>
                             <th class="col-md-8">Description</th>
                             {% else %}
@@ -116,7 +116,7 @@
                         {% for doc in others %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <td class="ellipsis">{{ doc.cat.name }}</th>
                             {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
@@ -146,7 +146,7 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <th class="col-md-2">Type</th>
                             <th class="col-md-8">Description</th>
                             {% else %}
@@ -158,7 +158,7 @@
                         {% for doc in announcements %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <td class="ellipsis">{{ doc.cat.name }}</th>
                             {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>
@@ -186,7 +186,7 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Date</th>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <th class="col-md-2">Type</th>
                             <th class="col-md-8">Description</th>
                             {% else %}
@@ -198,7 +198,7 @@
                         {% for doc in proxies %}
                         <tr>
                             <td class="ellipsis">{{ doc.date|date:"d/m/y" }}</td>
-                            {% if layout == 'us' %}
+                            {% if company.layout == 'us' %}
                             <td class="ellipsis">{{ doc.cat.name }}</th>
                             {% endif %}
                             <td class="ellipsis"><a href="/document/{{ doc.id }}">{{ doc.description }}</a></td>

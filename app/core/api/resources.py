@@ -42,7 +42,7 @@ class CompanySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Company
-        fields = ('id', 'ticker', 'full_name', 'short_name', 'exchange', 'website')
+        fields = ('id', 'ticker', 'full_name', 'short_name', 'exchange', 'layout', 'website')
 
 
 class WatchlistSerializer(serializers.ModelSerializer):
