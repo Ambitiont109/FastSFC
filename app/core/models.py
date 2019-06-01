@@ -229,21 +229,18 @@ class Timeseries(models.Model):
     get_latest_by = 'date'
 
 
-"""
-ORM signals:
-"""
-
-
 @receiver(post_save, sender=Document)
-def send_notifications(sender, instance, created, **kwargs):
+def send_alert(sender, instance, created, **kwargs):
+    """
+    Post-save signal
+    """
     if not created:
         # do not continue if it's a modification
         return
     try:
         # precompile template
-        template = get_template("emails/document_notification.html")
-        # prepare subject
-        subject_template = "[FastSFC] {ticker} Disclosure Alert: {document_description}"
+        template = get_template("emails/document_alert.html")
+
         users_data = instance.company.watchlist_set.select_related(
             'user', 'company'
         ).values(
@@ -257,7 +254,7 @@ def send_notifications(sender, instance, created, **kwargs):
                 "username": user_data['user__username'],
                 "company_name": user_data['company__short_name'],
                 "company_ticker": user_data['company__ticker'],
-                "document_url": host + reverse('core:document_detail', kwargs={'id': 1}),
+                "document_url": host + reverse('core:document_detail', kwargs={'id': instance.id}),
                 "document_date": instance.date,
                 "document_description": instance.description,
                 "company_url": host + reverse(
@@ -272,7 +269,7 @@ def send_notifications(sender, instance, created, **kwargs):
             txt_email = html2text(html_email)
 
             recipient = [user_data['user__email']]
-            subject = subject_template.format(
+            subject = "{ticker}: {document_description}".format(
                 ticker=user_data['company__ticker'],
                 document_description=instance.description
             )

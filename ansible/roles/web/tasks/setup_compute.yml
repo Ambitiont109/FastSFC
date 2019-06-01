@@ -38,6 +38,13 @@
   tags: cron
 
 # US
+- name: US new filings cronjob
+  cron: name="us hourly filing pull"
+        user="root"
+        minute="0"
+        job="/webapps/scrapy.sh crawl us_new_filing"
+  tags: cron
+
 # 10PM GMT, which is 5-6pm EST, after market close
 - name: US company cronjob
   cron: name="us daily refresh company"
@@ -46,18 +53,9 @@
         job="/webapps/scrapy.sh crawl us_company"
   tags: cron
 
-# Crawl US filings after refresh company
-- name: US new filings cronjob
-  cron: name="us daily filing pull"
-        user="root"
-        minute="0" hour="22"
-        job="/webapps/scrapy.sh crawl us_new_filing"
-  tags: cron
-
-# Refresh US filing count
 - name: US new filings count
   cron: name="us daily filing count"
         user="root"
-        minute="0" hour="23"
+        minute="0" hour="22"
         job="/webapps/scrapy.sh crawl us_filing_count"
   tags: cron

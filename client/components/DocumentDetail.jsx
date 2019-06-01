@@ -59,7 +59,11 @@ class DocumentDetail extends Component {
       data.company.exchange === 'AMEX' ||
       data.company.exchange === 'US'
     ) {
-      url = data.meta[1].cached_url;
+      // for US documents
+      url = (data.meta && data.meta[1].cached_url) || url;
+    } else {
+      // for HK documents
+      url = (data.meta && data.meta[filetype.toLowerCase()]) || url;
     }
 
     let fileLoader = <iframe title={url} src={url} />;

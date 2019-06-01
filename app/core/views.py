@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from django.views.generic import View, ListView
 from django.shortcuts import render
 from django.db.models import Q
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from app.core.models import Company, Document, WebsiteDocument
 from app.core.elastic import ESDocument
@@ -295,6 +297,7 @@ class DiscloseableTransactions(View):
 
 
 class Settings(View):
+    @method_decorator(login_required)
     def get(self, request):
         return render(request, 'account/settings.html')
 
@@ -305,8 +308,7 @@ class DocumentDetail(View):
 
         # US SEC blocks access from iframe, so if document is US
         # and not cached, redirect to SEC website
-        # if doc.company.layout == 'us' and doc.cached != Document.SUCCESS:
-        if doc.company.layout == 'us':
+        if doc.company.layout == 'us' and doc.cached != Document.SUCCESS:
             return HttpResponseRedirect(doc.url)
 
         return render(request, 'core/document.html', {

@@ -11,7 +11,6 @@
     "deploy:compute": "cd ansible && ansible-playbook -i production compute.yml --tags=deploy",
     "flake8": "flake8 app",
     "format": "prettier --write 'packages/**/*.js'",
-    "precommit": "lint-staged",
     "server": "python manage.py runserver 0.0.0.0:8000",
     "ssh:web": "bash ssh web",
     "ssh:compute": "bash ssh compute",

@@ -38,25 +38,6 @@
             {% endfor %}
         </tbody>
     </table>
-    <h2>Parsed (i.e. pdf filings parsed to txt and html format)</h2>
-    <table>
-        <tbody>
-            {% for row in parsed %}
-            {% if row.type == 'int' %}
-            <tr>
-                <td>{{ row.key }}</td>
-                <td align="right">{{ row.value|intcomma }}</td>
-            </tr>
-            {% endif %}
-            {% if row.type == 'percentage' %}
-            <tr>
-                <td>{{ row.key }}</td>
-                <td align="right">{{ row.value|percentage:2 }}</td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
     <h2>Indexed (i.e. filings indexed by elasticsearch)</h2>
     <table>
         <tbody>
