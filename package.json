@@ -11,6 +11,7 @@
     "deploy:compute": "cd ansible && ansible-playbook -i production compute.yml --tags=deploy",
     "flake8": "flake8 app",
     "format": "prettier --write 'packages/**/*.js'",
+    "precommit": "lint-staged && npm run-script build && git add --all",
     "server": "python manage.py runserver 0.0.0.0:8000",
     "ssh:web": "bash ssh web",
     "ssh:compute": "bash ssh compute",
@@ -21,8 +22,7 @@
   "lint-staged": {
     "client/*.{js,jsx,scss,css,md}": [
       "prettier --write --single-quote",
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   },
   "jest": {

@@ -262,7 +262,8 @@ def send_alert(sender, instance, created, **kwargs):
                     kwargs={
                         'ticker': user_data['company__ticker']
                     }
-                )
+                ),
+                "settings_url": host + reverse('core:settings')
             }
             # generate an email
             html_email = template.render(Context(user_context))

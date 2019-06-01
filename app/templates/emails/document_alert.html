@@ -7,16 +7,15 @@
 <body>
 <div>
     <p>
-        <b>{{ company_ticker }}: {{ company_name }}</b>
-    </p>
-    <p>
-        <a href="{{ document_url }}">{{ document_description }}</a>
+        <b>{{ company_name }} ({{ company_ticker }})</b>
         <br/>
         {{ document_date|date:"d/m/Y" }}
+        <br/>
+        <a href="{{ document_url }}">{{ document_description }}</a>
     </p>
     <p>
         To stop receiving messages about this company, please unwatch the company
-        <a href="http://fastsfc.com/settings">here</a>
+        <a href="{{ settings_url }}">here</a>
     </p>
 </div>
 </body>

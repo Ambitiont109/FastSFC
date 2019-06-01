@@ -5,6 +5,8 @@ from app.settings.base import *   # noqa: F401
 
 DEBUG = True
 
+SITE_HOST = 'http://localhost:8000'
+
 ADMINS = (
     ('justin', 'justinyek@gmail.com'),
 )

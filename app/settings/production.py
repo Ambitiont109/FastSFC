@@ -5,6 +5,8 @@ from app.settings.base import *   # pylint: disable=W0614,W0401
 
 DEBUG = False
 
+SITE_HOST = 'http://fastsfc.com'
+
 ADMINS = (
     ('FastSFC', 'hello@fastsfc.com'),
 )

@@ -12,6 +12,7 @@ from django.conf.global_settings import *   # pylint: disable=W0614,W0401
 DEBUG = True
 
 SITE_ID = 1
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 TIME_ZONE = 'Asia/Singapore'
