@@ -36,32 +36,11 @@ class DocumentSummaryAdmin(admin.ModelAdmin):
         total = qs.count()
         others_total = total - us_total - hk_total
 
-        hk_cached = hk.filter(cached=Document.SUCCESS).count()
-        hk_indexed = hk.filter(indexed=Document.SUCCESS).count()
-        us_cached = us.filter(cached=Document.SUCCESS).count()
-        us_indexed = us.filter(indexed=Document.SUCCESS).count()
-        total_cached = hk_cached + us_cached
-        total_indexed = hk_indexed + us_indexed
-
         response.context_data['summary'] = [
             {'key': 'HK', 'value': hk_total},
             {'key': 'US', 'value': us_total},
             {'key': 'Others', 'value': others_total},
             {'key': 'Total', 'value': total},
-        ]
-
-        response.context_data['cached'] = [
-            {'key': 'HK', 'value': hk_cached, 'type': 'int'},
-            {'key': 'US', 'value': us_cached, 'type': 'int'},
-            {'key': 'Total', 'value': total_cached, 'type': 'int'},
-            {'key': '% cached', 'value': float(total_cached)/total, 'type': 'percentage'},
-        ]
-
-        response.context_data['indexed'] = [
-            {'key': 'HK', 'value': hk_indexed, 'type': 'int'},
-            {'key': 'US', 'value': us_indexed, 'type': 'int'},
-            {'key': 'Total', 'value': total_indexed, 'type': 'int'},
-            {'key': '% indexed', 'value': float(total_indexed)/total, 'type': 'percentage'},
         ]
 
         one_month_ago = datetime.today() - timedelta(days=30)
