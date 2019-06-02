@@ -38,10 +38,11 @@
   tags: cron
 
 # US
+# Run every 12 hours
 - name: US new filings cronjob
   cron: name="us hourly filing pull"
         user="root"
-        minute="0"
+        minute="0" hour="11,23"
         job="/webapps/scrapy.sh crawl us_new_filing"
   tags: cron
 
