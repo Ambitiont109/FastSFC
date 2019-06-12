@@ -565,7 +565,11 @@
 }
 
 .leaderboard {
-  @extend .container;
+  padding: 5px 70px;
+
+  @include respond-to(handhelds) {
+    padding: 5px 20px;
+  }
 
   h3 {
     font-weight: bold;

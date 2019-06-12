@@ -269,6 +269,7 @@ def send_alert(sender, instance, created, **kwargs):
             html_email = template.render(Context(user_context))
             txt_email = html2text(html_email)
 
+            sender = 'FastSFC Alerts <alerts@fastsfc.com>'
             recipient = [user_data['user__email']]
             subject = "{ticker}: {document_description}".format(
                 ticker=user_data['company__ticker'],
@@ -276,7 +277,7 @@ def send_alert(sender, instance, created, **kwargs):
             )
 
             # subject, text, html, from_email, recipient
-            emails.append([subject, txt_email, html_email, None, recipient])
+            emails.append([subject, txt_email, html_email, sender, recipient])
         # send a batch
         send_mass_html_mail(emails, fail_silently=True)
 
