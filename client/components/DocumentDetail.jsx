@@ -42,7 +42,6 @@ class DocumentDetail extends Component {
       })
       .then(data => {
         this.state.data = data;
-
         this.setState({ loading: false });
       });
   }
@@ -66,12 +65,12 @@ class DocumentDetail extends Component {
       url = (data.meta && data.meta[filetype.toLowerCase()]) || url;
     }
 
-    let fileLoader = <iframe title={url} src={url} />;
+    let fileLoader = <iframe autoFocus title={url} src={url} />;
 
     if (filetype.toLowerCase() === 'pdf') {
       fileLoader = (
         <object data={url} type="application/pdf">
-          <embed src={url} type="application/pdf" />
+          <embed autoFocus src={url} type="application/pdf" />
         </object>
       );
     }

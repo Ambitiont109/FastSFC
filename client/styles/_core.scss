@@ -473,8 +473,11 @@
 
 #website-document-detail,
 #document-detail {
+  width: 100%;
+
   .left {
-    @extend .col-md-3;
+    float: left;
+    width: 300px;
     padding: 15px;
     background-color: $gray-lighter;
     overflow: hidden;
@@ -509,12 +512,19 @@
         }
       }
     }
+
+    @include respond-to(handhelds) {
+      width: 100%;
+      float: none;
+    }
   }
 
   .right {
-    @extend .col-md-9;
-    padding-left: 0px;
-    padding-right: 0px;
+    margin-left: 300px;
+
+    @include respond-to(handhelds) {
+      margin-left: 0px;
+    }
   }
 
   iframe,
