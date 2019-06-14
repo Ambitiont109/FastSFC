@@ -289,7 +289,7 @@ class DiscloseableTransactions(View):
             Q(description__contains='Discloseable Transaction') |
             Q(description__contains='Major and Connected Transaction'),
             Q(date__gte=one_month_ago),
-        )
+        ).order_by('-date')
 
         return render(request, 'core/leaderboards/discloseable_transactions.html', {
             'data': data,
