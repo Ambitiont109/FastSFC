@@ -160,6 +160,11 @@ class Document(models.Model):
     parsed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False, db_index=True)
     indexed = models.SmallIntegerField(default=0, choices=STATUS_CHOICES, null=False, db_index=True)
 
+    class Meta:
+        index_together = (
+            ('company', 'cat'),
+        )
+
 
 class WebsiteDocument(models.Model):
     company = models.ForeignKey('core.Company', null=True)
