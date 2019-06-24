@@ -151,7 +151,7 @@ class Document(models.Model):
     filetype = models.CharField(max_length=20, choices=FILETYPE_CHOICES, null=True)
     last_updated = models.DateTimeField(auto_now=True)
     meta = JSONField(null=True)
-    ref = models.CharField(max_length=50, null=True)
+    ref = models.CharField(max_length=50, null=True, db_index=True)
     size = models.IntegerField(null=True)
     subcat = models.ForeignKey('core.DocumentSubcategory', null=True)
     url = models.URLField(null=True)
