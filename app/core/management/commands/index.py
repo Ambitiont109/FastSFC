@@ -3,7 +3,9 @@ import os
 import sys
 import base64
 import subprocess
-import urllib2
+import urllib.request
+import urllib.error
+import urllib.parse
 import traceback
 from multiprocessing import Pool
 from elasticsearch_dsl import connections
@@ -27,9 +29,9 @@ def index(doc):
             input_url = doc.meta['1']['cached_url']
 
         # Start indexing
-        print 'Indexing {}'.format(input_url)
+        print('Indexing {}'.format(input_url))
 
-        input_file = urllib2.urlopen(input_url, timeout=300)
+        input_file = urllib.request.urlopen(input_url, timeout=300)
         data = input_file.read()
         body = base64.b64encode(data)
 
@@ -65,7 +67,7 @@ def index(doc):
         )
         search_doc.save(pipeline='attachment')
     except Exception as e:
-        print '{}.{}: {}'.format(doc.company.ticker, doc.id, e)
+        print('{}.{}: {}'.format(doc.company.ticker, doc.id, e))
         traceback.print_exc()
 
     doc.indexed = Document.SUCCESS

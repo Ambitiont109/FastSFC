@@ -13,10 +13,11 @@ es = connections.create_connection(
 )
 
 html = analyzer('html',
-    tokenizer='standard',
-    filter=['standard', 'lowercase', 'stop', 'snowball'],
-    char_filter=["html_strip"]
-)
+                tokenizer='standard',
+                filter=['standard', 'lowercase', 'stop', 'snowball'],
+                char_filter=["html_strip"]
+                )
+
 
 class ESDocument(Document):
     id = Integer()
@@ -31,4 +32,3 @@ class ESDocument(Document):
 
     class Index:
         name = 'document'
-

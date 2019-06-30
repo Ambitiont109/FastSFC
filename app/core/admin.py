@@ -101,6 +101,7 @@ class DocumentAdmin(admin.ModelAdmin):
 
     document_url.allow_tags = True
 
+
 class IncompleteFilingFilter(admin.SimpleListFilter):
     """
     DocumentCount - Filter

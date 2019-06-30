@@ -1,5 +1,5 @@
 from django.contrib.sitemaps.views import sitemap
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import admin
@@ -8,9 +8,7 @@ from app.core.sitemaps import sitemaps
 
 admin.autodiscover()
 
-urlpatterns = patterns(
-    '',
-
+urlpatterns = [
     # index
     url(r'^$', ensure_csrf_cookie(TemplateView.as_view(template_name='core/index.html')), name='index'),
 
@@ -35,4 +33,4 @@ urlpatterns = patterns(
 
     # sitemap
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-)
+]

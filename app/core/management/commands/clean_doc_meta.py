@@ -24,8 +24,8 @@ class Command(BaseCommand):
             )
 
         for doc in docs:
-            print 'Clean {} doc id {}'.format(doc.company.ticker, doc.id)
+            print('Clean {} doc id {}'.format(doc.company.ticker, doc.id))
             doc.meta = None
             doc.save()
 
-        print 'Done'
+        print('Done')

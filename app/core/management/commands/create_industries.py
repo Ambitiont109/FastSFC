@@ -29,7 +29,7 @@ class Command(BaseCommand):
                                 subsector = obj['name']
                                 code = obj['icb']
 
-                                print '{}: {}, {}, {}, {}'.format(code, subsector, sector, supersector, industry)
+                                print('{}: {}, {}, {}, {}'.format(code, subsector, sector, supersector, industry))
 
                                 Industry.objects.update_or_create(
                                     code=obj['icb'],

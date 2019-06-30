@@ -12,7 +12,7 @@ class Command(BaseCommand):
         docs = Document.objects.all()
 
         for doc in docs.iterator():
-            print doc.id
+            print(doc.id)
             doc.description = doc.description.replace("'S", "'s")
             doc.description = doc.description.replace("1St", "1st")
             doc.description = doc.description.replace("2Nd", "2nd")

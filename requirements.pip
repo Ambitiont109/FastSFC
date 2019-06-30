@@ -5,29 +5,27 @@
 #     pip install -r requirements.pip
 
 # App
-django==1.8.5
+django==1.11.17
 pandas==0.24.1
 django_compressor
-django-toolbelt
 django-webpack-loader
 django-allauth==0.24.1
 xlrd
-functools32
 titlecase
 html2text==2018.1.9
 
 # Lint
-flake8
-autopep8
+flake8==3.7.7
+autopep8==1.4.4
 
 # Rest API
-djangorestframework==3.3.1
-markdown
-django-filter==0.11.0
+djangorestframework==3.9.4
+markdown==3.1.1
+django-filter==2.1.0
 jsonfield
 
 # Search
-lxml==3.4.4
+lxml
 elasticsearch-dsl
 certifi
 
@@ -42,12 +40,11 @@ gunicorn
 supervisor
 
 # AWS
-boto
 boto3
 django-ses
 
 # Database
-mysql-python
+mysqlclient
 
 # Testing
 nose

@@ -22,4 +22,4 @@ class Command(BaseCommand):
 
             doc.save()
 
-        print 'Done'
+        print('Done')

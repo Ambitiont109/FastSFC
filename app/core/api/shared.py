@@ -1,4 +1,5 @@
 import django_filters
+from django_filters.rest_framework import DjangoFilterBackend
 from app.core.models import Metric, Timeseries, Source, Watchlist
 from rest_framework import serializers, viewsets, filters
 import json
@@ -37,6 +38,8 @@ class TimeseriesSerializer(serializers.ModelSerializer):
         fields = ('metric', 'start_date', 'end_date', 'type', 'value')
 
 # Filters
+
+
 class TimeseriesFilter(django_filters.FilterSet):
     class Meta:
         model = Timeseries
@@ -48,8 +51,8 @@ class TimeseriesFilter(django_filters.FilterSet):
 
 
 class MetricFilter(django_filters.FilterSet):
-    ticker = django_filters.MethodFilter(action='filter_meta_ticker')
-    company = django_filters.MethodFilter(action='filter_meta_company')
+    ticker = django_filters.CharFilter(method='filter_meta_ticker')
+    company = django_filters.CharFilter(method='filter_meta_company')
 
     class Meta:
         model = Metric
@@ -64,11 +67,13 @@ class MetricFilter(django_filters.FilterSet):
         return queryset.filter(meta__icontains=query)
 
 # Viewsets
+
+
 class TimeseriesViewSet(viewsets.ModelViewSet):
     queryset = Timeseries.objects.all()
     serializer_class = TimeseriesSerializer
     filter_backends = (
-        filters.DjangoFilterBackend,
+        DjangoFilterBackend,
         filters.OrderingFilter,
     )
     filter_class = TimeseriesFilter
@@ -80,7 +85,7 @@ class MetricViewSet(viewsets.ModelViewSet):
     queryset = Metric.objects.all()
     serializer_class = MetricSerializer
     filter_backends = (
-        filters.DjangoFilterBackend,
+        DjangoFilterBackend,
         filters.OrderingFilter,
         filters.SearchFilter,
     )

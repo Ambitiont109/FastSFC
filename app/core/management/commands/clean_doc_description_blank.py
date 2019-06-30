@@ -12,8 +12,8 @@ class Command(BaseCommand):
         )
 
         for doc in docs:
-            print doc.id
+            print(doc.id)
             doc.description = '[Untitled]'
             doc.save()
 
-        print 'Done'
+        print('Done')

@@ -45,4 +45,4 @@ class Command(BaseCommand):
             self.replace_key(doc, '.htm', 'html')
             self.replace_key(doc, '.doc', 'doc')
 
-        print 'Done'
+        print('Done')

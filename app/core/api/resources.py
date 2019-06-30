@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.models import Case, IntegerField, Value, When
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import pagination, routers
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import get_object_or_404
@@ -196,7 +197,7 @@ class DocumentViewSet(viewsets.ModelViewSet):
     serializer_class = DocumentSerializer
 
     filter_backends = (
-        filters.DjangoFilterBackend,
+        DjangoFilterBackend,
         filters.OrderingFilter,
     )
     filter_class = DocumentFilter
@@ -209,7 +210,7 @@ class WebsiteDocumentViewSet(viewsets.ModelViewSet):
     serializer_class = WebsiteDocumentSerializer
 
     filter_backends = (
-        filters.DjangoFilterBackend,
+        DjangoFilterBackend,
         filters.OrderingFilter,
     )
     filter_class = WebsiteDocumentFilter
@@ -231,7 +232,7 @@ class PriceViewSet(viewsets.ModelViewSet):
     pagination_class = PricePagination
 
     filter_backends = (
-        filters.DjangoFilterBackend,
+        DjangoFilterBackend,
         filters.OrderingFilter,
     )
     filter_class = PriceFilter

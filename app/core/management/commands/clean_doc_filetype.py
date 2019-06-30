@@ -23,4 +23,4 @@ class Command(BaseCommand):
             except:
                 pass
 
-        print 'Done'
+        print('Done')

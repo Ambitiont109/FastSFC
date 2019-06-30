@@ -7,8 +7,8 @@ FastSFC is a search engine for listed company documents. We currently support do
 
 FastSFC's webapp runs on Django, React and MySQL. You will need the following dependencies in order to set it up:
 
-* pip 19.0.3
-* python 2.7.10
+* python 3.6.5
+* pip 19.1.1
 * node 10.15.1
 * npm 6.9.0
 * npm-run-all 4.1.5
@@ -37,9 +37,37 @@ source env/bin/activate
 **Clone repository, install packages and configure settings**
 ```
 cd path/to/app/repository
-pip install -r requirements.pip
+pip3 install -r requirements.pip
 cp app/settings/local.sample.py app/settings/local.py
 ```
+
+For errors installing `mysqlclient`, please refer to the package [docs](https://github.com/PyMySQL/mysqlclient-python). On macOS, you may have to:
+
+1. Install MySQL development headers and libraries: `brew install mysql-connector-c`
+2. Fix bug on MySQL Connector/C
+
+```
+which mysql_config
+vim path/to/mysql_config
+```
+
+On macOS, on or about line 112, change:
+
+```
+# Create options
+libs="-L$pkglibdir"
+libs="$libs -l "
+```
+
+to
+
+```
+# Create options
+libs="-L$pkglibdir"
+libs="$libs -lmysqlclient -lssl -lcrypto"
+```
+
+3. Configure SSL by adding exports suggested in `brew info openssl` to `~/.bash_profile`
 
 **Create and prepare MySQL database**
 Ensure DATABASES in app/settings/local.py is configured to connect to MySQL database
@@ -55,7 +83,7 @@ Download and install seed database from [url](https://drive.google.com/open?id=1
 
 Migrate to update table structure.
 ```
-python manage.py migrate
+python3 manage.py migrate
 ```
 
 **Install frontend dependencies**

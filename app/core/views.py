@@ -1,5 +1,7 @@
 import math
-import urllib
+import urllib.request
+import urllib.parse
+import urllib.error
 from datetime import datetime, timedelta
 
 from django.http import HttpResponseRedirect

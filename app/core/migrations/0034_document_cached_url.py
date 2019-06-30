@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0016_dashboard_layout'),
+        ('core', '0033_auto_20190625_0615'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='pipeline',
-            name='code',
-            field=models.TextField(null=True),
+            model_name='document',
+            name='cached_url',
+            field=models.URLField(null=True),
         ),
     ]

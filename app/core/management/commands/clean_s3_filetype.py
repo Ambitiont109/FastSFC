@@ -19,11 +19,11 @@ class Command(BaseCommand):
         self.run_for_all = True
 
         if self.dryrun:
-            print 'Replacing s3 filetypes in dry run mode (will only run for first 10 objects and saved to fastsfc-development bucket'
+            print('Replacing s3 filetypes in dry run mode (will only run for first 10 objects and saved to fastsfc-development bucket')
             self.output_bucket = 'fastsfc-development'
             self.run_for_all = False
         else:
-            print 'Replacing s3 filetypes in production mode'
+            print('Replacing s3 filetypes in production mode')
 
         client = boto3.client(
             's3',
@@ -57,18 +57,18 @@ class Command(BaseCommand):
             try:
                 content_type = s3.content_type_from_key(item['Key'])
 
-                print 'Copying', item['Key'], content_type
+                print('Copying', item['Key'], content_type)
 
                 client.copy_object(
-                    CopySource = {
+                    CopySource={
                         'Bucket': self.input_bucket,
                         'Key': item['Key']
                     },
-                    ACL = 'public-read',
-                    Bucket = self.output_bucket,
-                    ContentType = content_type,
-                    Key = item['Key'],
-                    MetadataDirective = 'REPLACE',
+                    ACL='public-read',
+                    Bucket=self.output_bucket,
+                    ContentType=content_type,
+                    Key=item['Key'],
+                    MetadataDirective='REPLACE',
                 )
 
                 if not self.run_for_all:
@@ -80,4 +80,4 @@ class Command(BaseCommand):
                 import traceback
                 traceback.print_exc()
 
-        print 'Done'
+        print('Done')

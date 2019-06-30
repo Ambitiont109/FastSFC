@@ -144,6 +144,7 @@ class Document(models.Model):
         (ERROR, 'Error'),
     )
 
+    cached_url = models.URLField(null=True)
     cat = models.ForeignKey('core.DocumentCategory', null=True)
     company = models.ForeignKey('core.Company', null=True)
     date = models.DateTimeField(null=True, db_index=True)
