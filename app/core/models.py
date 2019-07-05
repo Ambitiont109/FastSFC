@@ -31,7 +31,7 @@ class Watchlist(models.Model):
 class Period(models.Model):
     short_name = models.CharField(max_length=10, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.short_name
 
 
@@ -40,7 +40,7 @@ class DocumentCategory(models.Model):
     type = models.CharField(max_length=200, null=False, default="other", db_index=True)
     description = models.CharField(max_length=1000, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -50,7 +50,7 @@ class DocumentCategory(models.Model):
 class DocumentSubcategory(models.Model):
     name = models.CharField(max_length=1000, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -61,7 +61,7 @@ class Exchange(models.Model):
     short_name = models.CharField(max_length=20, null=True)
     full_name = models.CharField(max_length=100, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.short_name
 
 
@@ -78,7 +78,7 @@ class Company(models.Model):
     website = models.URLField(null=True)
     last_updated = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.ticker or self.short_name
 
     @property
@@ -208,7 +208,7 @@ class Source(models.Model):
     name = models.CharField(max_length=255, null=False, unique=True, db_index=True)
     description = models.CharField(max_length=1000, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -219,7 +219,7 @@ class Metric(models.Model):
     type = models.CharField(max_length=20, null=True)
     meta = JSONField(null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def timeseriesCount(self):
