@@ -84,8 +84,8 @@ class PriceSerializer(serializers.ModelSerializer):
 
 
 class PriceFilter(django_filters.FilterSet):
-    ticker = django_filters.CharFilter(name='company__ticker')
-    date_from = django_filters.DateFilter(name='date', lookup_type='gte')
+    ticker = django_filters.CharFilter(field_name='company__ticker')
+    date_from = django_filters.DateFilter(field_name='date', lookup_expr='gte')
 
     class Meta:
         model = Price
@@ -93,9 +93,9 @@ class PriceFilter(django_filters.FilterSet):
 
 
 class DocumentFilter(django_filters.FilterSet):
-    ticker = django_filters.CharFilter(name='company__ticker')
-    type = django_filters.CharFilter(name='cat__type')
-    date_from = django_filters.DateFilter(name='date', lookup_type='gte')
+    ticker = django_filters.CharFilter(field_name='company__ticker')
+    type = django_filters.CharFilter(field_name='cat__type')
+    date_from = django_filters.DateFilter(field_name='date', lookup_expr='gte')
 
     class Meta:
         model = Document
@@ -103,8 +103,8 @@ class DocumentFilter(django_filters.FilterSet):
 
 
 class WebsiteDocumentFilter(django_filters.FilterSet):
-    ticker = django_filters.CharFilter(name='company__ticker')
-    type = django_filters.CharFilter(name='cat__type')
+    ticker = django_filters.CharFilter(field_name='company__ticker')
+    type = django_filters.CharFilter(field_name='cat__type')
 
     class Meta:
         model = WebsiteDocument
@@ -115,6 +115,9 @@ class RelevantSearchFilter(SearchFilter):
     def filter_queryset(self, request, queryset, view):
         queryset = super(RelevantSearchFilter, self).filter_queryset(request, queryset, view)
         search_value = request.query_params.get('search')
+
+        if not search_value:
+            return queryset
 
         return queryset.annotate(
             custom_order=Case(

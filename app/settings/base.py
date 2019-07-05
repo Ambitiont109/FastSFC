@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'django_ses',
+    'django_filters',
     'compressor',
     'titlecase',
     'rest_framework',
